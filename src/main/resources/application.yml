@@ -1,0 +1,30 @@
+server:
+  port: 1000
+
+# datasource
+spring:
+  profiles:
+    include: mysql
+  application:
+    name: SchoolMangerSpring
+  datasource:
+    url: mysql.url # database url
+    username: mysql.username # database username
+    password: mysql.password # database password
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      max-active: 10
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+# log
+logging:
+  config: classpath:log4j2.xml
+  level:
+    root: debug
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # mybatis plus log config
+    map-underscore-to-camel-case: false #  camel case config
