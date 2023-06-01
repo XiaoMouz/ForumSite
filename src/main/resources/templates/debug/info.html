@@ -1,0 +1,35 @@
+{% extends "_base" %}
+
+{% block main %}
+<div class="alert alert-{{type}}" role="alert">
+    <h4 class="alert-heading">{{infoTitle}}</h4>
+    <p>
+        {% if dataType == "list" %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Job</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in infoMessage%}
+                        <tr>
+                            <th scope="row">{{item.getId()}}</th>
+                            <td>{{item.getName()}}</td>
+                            <td>{{item.getJob()}}</td>
+                        </tr>
+                    {% else%}
+                        <p> Failed </p>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>{{infoMessage}}</p>
+        {% endif %}
+    </p>
+    <hr>
+    <p class="mb-0">However, you can contact administrator too.</p>
+</div>
+{% endblock %}
