@@ -1,0 +1,12 @@
+{% extends "._base" %}
+
+{% block main %}
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">500 The server exception handler catch a error</h4>
+    <p>
+        {{error.getMessage()}}
+    </p>
+    <hr>
+    <p>If you have any question, Please in Github create new issue</p>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-package com.mou.gameforum.booter;
+package com.mou.gameforum;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

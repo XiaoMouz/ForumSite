@@ -25,7 +25,7 @@
         <RollingFile name="FILE-LOG" fileName="logs/app.log"
                      filePattern="logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
             <!--日志文件中日志信息的格式-->
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} =>[%thread] == %-5level %logger{50}:%line - %msg%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} =>[%thread] ==%highlight{ %-5level %logger{50}}:%line - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <!--日志文件大小超过多少时进行存档-->
@@ -39,7 +39,6 @@
     2、任何一个类只会和一个logger对应，要么是定义的logger，要么是root，判断的关键在于找到这个logger，然后判断这个logger的appender和level。
     3、appender-ref 用于引用上面定义好的 appender 日志追加器，只有引用了，上面的 appender 才能生效. -->
     <loggers>
-
         <root level="DEBUG">
             <appender-ref ref="CONSOLE-LOG"/>
             <appender-ref ref="FILE-LOG"/>

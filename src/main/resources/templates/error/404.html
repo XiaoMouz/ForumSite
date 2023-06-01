@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title>重定向</title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link href="/static/css/404/style.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column
+        }
+
+        main {
+            flex: 1 0 auto
+        }
+
+        code {
+            font-family: Menlo, Monaco, Consolas, "Courier New", monospace
+        }
+
+        code {
+            padding: 2px 10px;
+            font-size: 1.5rem;
+            color: #11a2f7;
+            background-color: #f9f2f4;
+            border-radius: 4px
+        }
+
+        span {
+            font-size: 1.5rem
+        }
+
+        #card {
+            background-image: url(/static/image/404/1.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%
+        }
+
+        a {
+            color: #11a2f7;
+            transition: all .3s
+        }
+
+        a:hover {
+            filter: brightness(.8)
+        }
+    </style>
+</head>
+
+<body>
+<main>
+    <div class="container" style="margin-top:20px">
+        <div class="row">
+            <div class="col l4 offset-l4 m6 offset-m3 s10 offset-s1">
+                <div class="row">
+                    <div class="col s10 offset-s1">
+                        <div id="card" class="card">
+                            <div id="card_image" class="card-image" style="height:320px">
+                                <div style="position:absolute;bottom:0;right:0"><span style="color:#cdcdcd;font-size:.5rem">Twitter</span></div>
+                            </div>
+                            <div class="card-content center-align" style="background-color:#fff"><span style="color:#11a2f7">404了~</span><br><br><code><a id="jump-link" href="https://mou.best/">mou.best</a></code><br><br></div>
+                            <div class="progress" style="background-color:#ffffff">
+                                <div id="progress" class="determinate" style="width:0%;background-color:#1188f7"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="page-footer transparent">
+    <div class="footer-copyright transparent">
+        <div class="container pink-text text-lighten-2 center-align"><a href="https://yuzu.im" target="_blank">© Copyright Netrvin</a></div>
+    </div>
+</footer>
+<script>
+    ! function() {
+        var e = window.location.href.replace(window.location.host, "localhost:8080"),
+            t = document.getElementById("card"),
+            n = document.getElementById("card_image"),
+            o = document.getElementById("progress");
+        document.getElementById("jump-link").href = e;
+        var c = 100;
+
+        function d() {
+            c--, n.style.height = t.offsetWidth, o.style.width = (100 - c).toString() + "%", 0 == c && (clearInterval(i), window.location.href = "/")
+        }
+        d();
+        var i = setInterval(function() {
+            d()
+        }, 50)
+    }()
+</script>
+</body>
+
+</html>
