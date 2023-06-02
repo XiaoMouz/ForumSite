@@ -7,6 +7,7 @@ import com.mou.gameforum.entity.dto.UserLoginDto;
 import com.mou.gameforum.mapper.levels.LevelsMapper;
 import com.mou.gameforum.mapper.user.UserMapper;
 import com.mou.gameforum.service.user.UserService;
+import com.mou.gameforum.utils.StringUtils;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginDto(UserLoginDto loginDto, NetworkRequestDto requestDto) {
+        loginDto.password = StringUtils.getMD5Result(loginDto.password);
         User user =userMapper.getUserByUserDto(loginDto);
         if(user!=null){
             userMapper.updateUserLoginTimeAndIp(user,requestDto);
