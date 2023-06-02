@@ -53,7 +53,7 @@ class GameForumApplicationTests {
 
     @Test
     void testUserServiceLogin(){
-        User user = userService.loginDto(new UserLoginDto("XiaoMouz", StringUtils.getMD5Result("123456")), new NetworkRequestDto("::1",new Date()));
+        User user = userService.loginDto(new UserLoginDto("XiaoMouz","123456"), new NetworkRequestDto("::1",new Date()));
         System.out.println(user);
     }
 }
