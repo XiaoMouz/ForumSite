@@ -1,11 +1,15 @@
 package com.mou.gameforum.entity;
 
+import com.alibaba.fastjson2.JSON;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mou.gameforum.entity.enums.UserStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Data
@@ -38,6 +42,10 @@ public class User {
      */
     String token;
     /**
+     * 用户状态
+     */
+    UserStatusEnum status;
+    /**
      * 用户注册 ip
      */
     String registerIp;
@@ -61,4 +69,10 @@ public class User {
      * 用户权限组
      */
     Levels[] levels;
+
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
 }

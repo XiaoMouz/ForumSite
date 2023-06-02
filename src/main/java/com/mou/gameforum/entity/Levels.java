@@ -1,5 +1,7 @@
 package com.mou.gameforum.entity;
 
+import com.alibaba.fastjson2.JSON;
+
 public class Levels {
     /**
      * 权限组id
@@ -21,4 +23,8 @@ public class Levels {
      * 权限组发帖权限
      */
     Boolean release;
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
 }

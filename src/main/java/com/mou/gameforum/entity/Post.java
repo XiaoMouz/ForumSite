@@ -1,6 +1,7 @@
 package com.mou.gameforum.entity;
 
 
+import com.alibaba.fastjson2.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,4 +48,8 @@ public class Post {
      * 评论
      */
     Comments[] comments;
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
 }

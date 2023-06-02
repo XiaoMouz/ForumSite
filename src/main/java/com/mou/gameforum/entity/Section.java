@@ -1,5 +1,6 @@
 package com.mou.gameforum.entity;
 
+import com.alibaba.fastjson2.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,8 @@ public class Section {
      * 分区版主
      */
     User[] moderator;
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
 }
