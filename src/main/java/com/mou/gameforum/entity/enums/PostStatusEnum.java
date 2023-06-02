@@ -1,5 +1,8 @@
 package com.mou.gameforum.entity.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.mou.gameforum.entity.Post;
+
 /**
  * 文章状态枚举类
  */
@@ -7,13 +10,19 @@ public enum PostStatusEnum {
     /**
      * 已发布
      */
-    PUBLISH,
+    PUBLISH("publish"),
     /**
      * 草稿
      */
-    DRAFT,
+    DRAFT("draft"),
     /**
      * 删除
      */
-    DELETED
+    DELETED("deleted");
+
+    @EnumValue
+    private String status;
+
+    PostStatusEnum(String status) {
+    }
 }

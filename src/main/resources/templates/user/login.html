@@ -1,0 +1,55 @@
+{% extends "_base" %}
+
+{% block main %}
+<script>
+    $(function () {
+        $('#signinForm').submit(function (e) {
+            e.preventDefault();
+            if ($('#username').val() == '' || $('#password').val() == '') {
+                $('#error').text('请填写完整信息');
+                return;
+            };
+            $('#error').text('');
+            var data = {
+                username: $('#username').val(),
+                password: $('#password').val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: '#',
+                data: JSON.stringify(data),
+                success: function (resp) {
+                    if (resp.code!==200||resp.code!==201) {
+                        switch(resp.code){
+                            case 401 : $('#error').text("Username/Email or password is wrong");break;
+                            default : $('#error').text(resp.msg);break;
+                        }
+
+                    } else {
+                        location.assign('./');
+                    }
+                },
+                contentType: 'application/json',
+                dataType: 'json'
+            });
+        });
+    });
+</script>
+
+<form id="signinForm">
+    <div class="form-group">
+        <p id="error" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Username</label>
+        <input id="username" type="username" class="form-control" placeholder="Username">
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input id="password" type="password" class="form-control" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Login</button> or <a type="button" href="./register" class="btn btn-outline-secondary">Register</a>
+    <br><br>
+    Forget password?<a href="./reset">Reset password</a>
+</form>
+{% endblock %}

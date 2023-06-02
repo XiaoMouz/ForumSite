@@ -1,6 +1,9 @@
 package com.mou.gameforum.entity;
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
 import lombok.AllArgsConstructor;
@@ -11,10 +14,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("users")
 public class User {
     /**
      * 用户id
@@ -68,7 +73,8 @@ public class User {
     /**
      * 用户权限组
      */
-    Levels[] levels;
+    @TableField(exist = false)
+    List<Levels> levels;
 
 
     @Override

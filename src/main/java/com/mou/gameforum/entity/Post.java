@@ -2,6 +2,7 @@ package com.mou.gameforum.entity;
 
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("posts")
 public class Post {
     Integer id;
     /**

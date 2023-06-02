@@ -1,0 +1,66 @@
+{% extends "_base" %}
+
+{% block main %}
+<script>
+    $(function () {
+        $('#regForm').submit(function (e) {
+            e.preventDefault()
+            if ($('#username').val() == '' || $('#email').val() == '' || $('#password').val() == '') {
+                $('#error').text('请填写完整信息');
+                return;
+            };
+            if (!/^[a-zA-Z0-9]+$/.test($('#username').val())) {
+                $('#error').text('用户名只能包含字母和数字');
+                return;
+            };
+            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test($('#email').val())) {
+                $('#error').text('邮箱格式不正确');
+                return;
+            };
+            if ($('#password').val().length < 6 || $('#password').val().length > 16) {
+                $('#error').text('密码长度应为6-16位');
+                return;
+            };
+            $('#error').text('');
+            let data = {
+                username: $('#username').val(),
+                email: $('#email').val(),
+                password: $('#password').val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: '#',
+                data: JSON.stringify(data),
+                success: function (resp) {
+                    if (resp.error) {
+                        $('#error').text(resp.error);
+                    } else {
+                        location.assign('./');
+                    }
+                },
+                contentType: 'application/json',
+                dataType: 'json'
+            });
+        });
+    });
+</script>
+
+<form id="regForm">
+    <div class="form-group">
+        <p id="error" class="text-danger"></p>
+    </div>
+    <div class="form-group">
+        <label>Username</label>
+        <input id="username" type="username" class="form-control" placeholder="Username">
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input id="email" type="email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input id="password" type="password" class="form-control" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Register</button> or <a href="./login" class="btn btn-outline-secondary">Login</a>
+</form>
+{% endblock %}

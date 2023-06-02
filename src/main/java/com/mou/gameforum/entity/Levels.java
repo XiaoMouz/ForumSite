@@ -1,7 +1,15 @@
 package com.mou.gameforum.entity;
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@TableName("userlevels")
 public class Levels {
     /**
      * 权限组id
@@ -22,7 +30,7 @@ public class Levels {
     /**
      * 权限组发帖权限
      */
-    Boolean release;
+    Boolean releasePost;
     @Override
     public String toString() {
         return JSON.toJSONString(this);

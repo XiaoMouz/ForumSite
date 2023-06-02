@@ -20,16 +20,18 @@ public class GlobalExceptionAdviceControl {
 
     /**
      * 接管所有 Exception，出现时跳转至 500 页面
-     * @param ex Exception
+     * @param error Exception
      * @return ModelAndView
      */
     @ExceptionHandler(Exception.class)
     @RequestMapping("/500")
-    public ModelAndView handleException(Exception ex) {
+    public ModelAndView handleException(Exception error) {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("error/500");
-        modelAndView.addObject("error", ex);
+        modelAndView.addObject("error", error);
+        modelAndView.addObject("errorName", error.getClass().getName());
+        modelAndView.addObject("errorMessage",error.getMessage());
         return modelAndView;
     }
 }
