@@ -24,9 +24,17 @@ public class UserServiceImpl implements UserService {
     LevelsMapper levelsMapper;
 
     @Override
-    public User loginDto(UserLoginDto loginDto, NetworkRequestDto requestDto) {
+    public User loginByDto(UserLoginDto loginDto, NetworkRequestDto requestDto) {
+        // match if loginByDto have @ char search email by mapper
+        User user;
         loginDto.password = StringUtils.getMD5Result(loginDto.password);
-        User user =userMapper.getUserByUserDto(loginDto);
+        if(loginDto.username.contains("@")){
+           user = userMapper.getUserByUserDtoEmail(loginDto);
+        }else{
+            user =userMapper.getUserByUserDto(loginDto);
+        }
+
+
         if(user!=null){
             userMapper.updateUserLoginTimeAndIp(user,requestDto);
             ArrayList<Levels> list = new ArrayList<>();

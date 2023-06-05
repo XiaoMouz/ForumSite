@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-    User loginDto(UserLoginDto loginDto, NetworkRequestDto requestDto);
+    User loginByDto(UserLoginDto loginDto, NetworkRequestDto requestDto);
 }

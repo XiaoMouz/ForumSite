@@ -3,48 +3,41 @@ package com.mou.gameforum.entity;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-/**
- * 分区
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("版块")
-@TableName("sections")
-public class Section {
+@ApiModel("Zone 分区")
+@TableName("section_zone")
+public class Zone {
     Integer id;
     /**
-     * 版块名
+     * 大区名
      */
-    @ApiModelProperty("版块名称")
     String name;
     /**
-     * 版块描述
+     * 大区描述
      */
-    @ApiModelProperty("版块详情")
     String description;;
     /**
-     * 版块版主
+     * 大区版主
      */
-    @ApiModelProperty("版块版主 用户类型")
     User[] moderator;
     /**
-     * 版块图标相对路径
+     * 大区管理员权限组
      */
-    @ApiModelProperty("版块图标")
+    Levels[] levels;
+    /**
+     * 大区图标相对路径
+     */
     String icon;
     /**
-     * 版块下文章
+     * 大区下版块
      */
-    @ApiModelProperty("版块下文章")
-    List<Post> posts;
+    Section[] sections;
     @Override
     public String toString() {
         return JSON.toJSONString(this);

@@ -10,12 +10,9 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -45,7 +42,7 @@ public class UserControl {
         // get network request ip
         // get right now time
         NetworkRequestDto nqd = new NetworkRequestDto(request.getRemoteAddr(),new Date());
-        User verifyUser = userService.loginDto(user,nqd);
+        User verifyUser = userService.loginByDto(user,nqd);
         if(verifyUser!=null){
             session.setAttribute("user",verifyUser);
             return new ModelAndView("redirect:/","user",verifyUser);

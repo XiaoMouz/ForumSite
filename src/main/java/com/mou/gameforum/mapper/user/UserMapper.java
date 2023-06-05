@@ -16,12 +16,20 @@ import java.util.List;
 @Mapper
 public interface UserMapper extends MPJBaseMapper<User> {
     /**
-     * 根据登录 dto 获取用户
+     * 根据登录 dto 用户名获取用户
      * @param loginDto 登录 dto，包含用户名和 md5 密码
      * @return 用户
      */
     @Select("select * from users where username = #{username} and password = #{password}")
     User getUserByUserDto(UserLoginDto loginDto);
+
+    /**
+     * 根据登录 dto 邮箱获取用户
+     * @param loginDto 登录 dto，包含邮箱和 md5 密码
+     * @return 用户
+     */
+    @Select("select * from users where email = #{email} and password = #{password}")
+    User getUserByUserDtoEmail(UserLoginDto loginDto);
 
     /**
      * 更新用户的登录时间和 IP

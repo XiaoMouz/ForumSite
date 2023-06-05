@@ -33,3 +33,15 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl # mybatis plus log config
     map-underscore-to-camel-case: false #  camel case config
+
+# swagger ui
+springfox:
+  documentation:
+    enabled: true
+    swagger-ui:
+      enabled: true
+      base-url: api-docs
+    swagger:
+      v2:
+        enabled: true
+        host: localhost:1000
