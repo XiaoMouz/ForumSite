@@ -1,7 +1,6 @@
 package com.mou.gameforum;
 
 import com.mou.gameforum.filter.AuthFilter;
-import com.mou.gameforum.filter.LogFilter;
 import org.jetbrains.annotations.NotNull;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +18,13 @@ import java.util.Scanner;
 @SpringBootApplication
 @Configuration
 @MapperScan("com.mou.gameforum.mapper")
-public class GameForumApplication { ;
-    @Qualifier
+public class GameForumApplication {
+    @Autowired
     AuthFilter authFilter;
 
-    @Qualifier
-    LogFilter logFilter;
+    public GameForumApplication() {
+        super();
+    }
 
     @Bean
     WebMvcConfigurer createWebMvcConfigurer() {
@@ -42,18 +42,22 @@ public class GameForumApplication { ;
             /**
              * 添加了身份验证拦截器
              */
-//            @Override
-//            public void addInterceptors(@NotNull InterceptorRegistry registry) {
-//                registry.addInterceptor(authFilter).addPathPatterns("/**")
-//                        .excludePathPatterns(
-//                                "/login",
-//                                "/register",
-//                                "/logout",
-//                                "/api/**",
-//                                "/api",
-//                                "/"
-//                        ); // 例外路径
-//            }
+            @Override
+            public void addInterceptors(@NotNull InterceptorRegistry registry) {
+                registry.addInterceptor(authFilter).addPathPatterns("/**")
+                        .excludePathPatterns(
+                                "/404",
+                                "/500",
+                                "/login",
+                                "/register",
+                                "/logout",
+                                "/api/**",
+                                "/api",
+                                "/assets",
+                                "/assets/**",
+                                "/"
+                        ); // 例外路径
+            }
 
         };
     }

@@ -38,7 +38,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
             <exclusions>
-                <!--移除掉 spring boot 默认的日志启动器-->
+                <!-- 移除掉 spring boot 默认的日志启动器 -->
                 <exclusion>
                     <artifactId>spring-boot-starter-logging</artifactId>
                     <groupId>org.springframework.boot</groupId>
