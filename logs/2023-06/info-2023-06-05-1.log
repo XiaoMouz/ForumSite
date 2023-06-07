@@ -1,0 +1,163 @@
+2023-06-05 10:51:09.495 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:51 - Starting GameForumApplication using Java 18.0.2.1 with PID 35544 (E:\Codes\Local Repo\Java\GameForum\target\classes started by XiaoMouz in E:\Codes\Local Repo\Java\GameForum)
+2023-06-05 10:51:09.606 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:633 - No active profile set, falling back to 1 default profile: "default"
+2023-06-05 10:51:09.933 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-05 10:51:09.933 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-05 10:51:12.629 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108 - Tomcat initialized with port(s): 1000 (http)
+2023-06-05 10:51:12.642 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-1000"]
+2023-06-05 10:51:12.644 =>[restartedMain] == INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+2023-06-05 10:51:12.644 =>[restartedMain] == INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-05 10:51:12.714 =>[restartedMain] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring embedded WebApplicationContext
+2023-06-05 10:51:12.715 =>[restartedMain] == INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:291 - Root WebApplicationContext: initialization completed in 2781 ms
+2023-06-05 10:51:13.043 =>[restartedMain] == INFO  com.github.yulichang.autoconfigure.MybatisPlusJoinAutoConfiguration:111 - MPJSqlInjector init
+2023-06-05 10:51:13.202 =>[restartedMain] == WARN  com.baomidou.mybatisplus.core.injector.AbstractMethod:405 - [com.mou.gameforum.mapper.user.UserMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2023-06-05 10:51:13.499 =>[restartedMain] == INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping:57 - Adding welcome page template: index
+2023-06-05 10:51:13.905 =>[restartedMain] == INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer:59 - LiveReload server is running on port 35729
+2023-06-05 10:51:13.912 =>[restartedMain] == INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-06-05 10:51:13.972 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-1000"]
+2023-06-05 10:51:13.997 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220 - Tomcat started on port(s): 1000 (http) with context path ''
+2023-06-05 10:51:14.011 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:57 - Started GameForumApplication in 5.231 seconds (process running for 7.767)
+2023-06-05 10:51:14.546 =>[RMI TCP Connection(5)-169.254.210.160] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-05 10:51:14.546 =>[RMI TCP Connection(5)-169.254.210.160] == INFO  org.springframework.web.servlet.DispatcherServlet:532 - Initializing Servlet 'dispatcherServlet'
+2023-06-05 10:51:14.550 =>[RMI TCP Connection(5)-169.254.210.160] == INFO  org.springframework.web.servlet.DispatcherServlet:554 - Completed initialization in 4 ms
+2023-06-05 10:51:14.626 =>[RMI TCP Connection(7)-169.254.210.160] == INFO  com.alibaba.druid.pool.DruidDataSource:1010 - {dataSource-1} inited
+2023-06-05 21:22:35.755 =>[SpringApplicationShutdownHook] == INFO  com.alibaba.druid.pool.DruidDataSource:2170 - {dataSource-1} closing ...
+2023-06-05 21:22:35.762 =>[SpringApplicationShutdownHook] == INFO  com.alibaba.druid.pool.DruidDataSource:2243 - {dataSource-1} closed
+2023-06-05 21:23:14.421 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:51 - Starting GameForumApplication using Java 18.0.2.1 with PID 33592 (E:\Codes\Local Repo\Java\GameForum\target\classes started by XiaoMouz in E:\Codes\Local Repo\Java\GameForum)
+2023-06-05 21:23:14.433 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:633 - No active profile set, falling back to 1 default profile: "default"
+2023-06-05 21:23:14.505 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-05 21:23:14.505 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-05 21:23:17.448 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108 - Tomcat initialized with port(s): 1000 (http)
+2023-06-05 21:23:17.467 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:23:17.469 =>[restartedMain] == INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+2023-06-05 21:23:17.470 =>[restartedMain] == INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-05 21:23:17.582 =>[restartedMain] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring embedded WebApplicationContext
+2023-06-05 21:23:17.582 =>[restartedMain] == INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:291 - Root WebApplicationContext: initialization completed in 3076 ms
+2023-06-05 21:23:18.258 =>[restartedMain] == INFO  com.github.yulichang.autoconfigure.MybatisPlusJoinAutoConfiguration:111 - MPJSqlInjector init
+2023-06-05 21:23:18.531 =>[restartedMain] == WARN  com.baomidou.mybatisplus.core.injector.AbstractMethod:405 - [com.mou.gameforum.mapper.user.UserMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2023-06-05 21:23:19.166 =>[restartedMain] == INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping:57 - Adding welcome page template: index
+2023-06-05 21:23:20.162 =>[restartedMain] == INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer:59 - LiveReload server is running on port 35729
+2023-06-05 21:23:20.177 =>[restartedMain] == INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-06-05 21:23:20.291 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:23:20.338 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220 - Tomcat started on port(s): 1000 (http) with context path ''
+2023-06-05 21:23:20.371 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:57 - Started GameForumApplication in 6.56 seconds (process running for 9.676)
+2023-06-05 21:23:20.554 =>[http-nio-1000-exec-1] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-05 21:23:20.555 =>[http-nio-1000-exec-1] == INFO  org.springframework.web.servlet.DispatcherServlet:532 - Initializing Servlet 'dispatcherServlet'
+2023-06-05 21:23:20.558 =>[http-nio-1000-exec-1] == INFO  org.springframework.web.servlet.DispatcherServlet:554 - Completed initialization in 2 ms
+2023-06-05 21:23:20.592 =>[http-nio-1000-exec-1] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:23:20.788 =>[http-nio-1000-exec-2] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:23:20.789 =>[http-nio-1000-exec-3] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:23:20.809 =>[http-nio-1000-exec-4] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:23:20.850 =>[http-nio-1000-exec-3] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:23:21.122 =>[RMI TCP Connection(1)-169.254.210.160] == INFO  com.alibaba.druid.pool.DruidDataSource:1010 - {dataSource-1} inited
+2023-06-05 21:23:22.056 =>[http-nio-1000-exec-5] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:23:25.991 =>[http-nio-1000-exec-6] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:23:26.194 =>[http-nio-1000-exec-8] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:23:26.329 =>[http-nio-1000-exec-7] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:23:47.739 =>[http-nio-1000-exec-9] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:24:19.319 =>[http-nio-1000-exec-10] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:24:19.393 =>[http-nio-1000-exec-1] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:24:19.414 =>[http-nio-1000-exec-4] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:24:19.416 =>[http-nio-1000-exec-2] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:24:19.899 =>[http-nio-1000-exec-3] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:25:39.825 =>[File Watcher] == INFO  org.springframework.boot.devtools.autoconfigure.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener:211 - Restarting due to 58 class path changes (0 additions, 58 deletions, 0 modifications)
+2023-06-05 21:25:39.861 =>[Thread-5] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Pausing ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:25:39.861 =>[Thread-5] == INFO  org.apache.catalina.core.StandardService:173 - Stopping service [Tomcat]
+2023-06-05 21:25:39.863 =>[Thread-5] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-06-05 21:25:39.901 =>[Thread-5] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Stopping ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:25:39.904 =>[Thread-5] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Destroying ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:25:39.917 =>[Thread-5] == INFO  com.alibaba.druid.pool.DruidDataSource:2170 - {dataSource-1} closing ...
+2023-06-05 21:25:39.928 =>[Thread-5] == INFO  com.alibaba.druid.pool.DruidDataSource:2243 - {dataSource-1} closed
+2023-06-05 21:34:59.215 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:51 - Starting GameForumApplication using Java 18.0.2.1 with PID 35040 (E:\Codes\Local Repo\Java\GameForum\target\classes started by XiaoMouz in E:\Codes\Local Repo\Java\GameForum)
+2023-06-05 21:34:59.228 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:633 - No active profile set, falling back to 1 default profile: "default"
+2023-06-05 21:34:59.300 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-05 21:34:59.301 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-05 21:35:01.585 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108 - Tomcat initialized with port(s): 1000 (http)
+2023-06-05 21:35:01.595 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:35:01.596 =>[restartedMain] == INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+2023-06-05 21:35:01.597 =>[restartedMain] == INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-05 21:35:01.676 =>[restartedMain] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring embedded WebApplicationContext
+2023-06-05 21:35:01.677 =>[restartedMain] == INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:291 - Root WebApplicationContext: initialization completed in 2376 ms
+2023-06-05 21:35:01.973 =>[restartedMain] == INFO  com.github.yulichang.autoconfigure.MybatisPlusJoinAutoConfiguration:111 - MPJSqlInjector init
+2023-06-05 21:35:02.162 =>[restartedMain] == WARN  com.baomidou.mybatisplus.core.injector.AbstractMethod:405 - [com.mou.gameforum.mapper.user.UserMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2023-06-05 21:35:02.736 =>[restartedMain] == INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping:57 - Adding welcome page template: index
+2023-06-05 21:35:03.435 =>[restartedMain] == INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer:59 - LiveReload server is running on port 35729
+2023-06-05 21:35:03.442 =>[restartedMain] == INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-06-05 21:35:03.499 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:35:03.527 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220 - Tomcat started on port(s): 1000 (http) with context path ''
+2023-06-05 21:35:03.545 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:57 - Started GameForumApplication in 4.893 seconds (process running for 6.934)
+2023-06-05 21:35:03.990 =>[RMI TCP Connection(4)-169.254.210.160] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-05 21:35:03.991 =>[RMI TCP Connection(4)-169.254.210.160] == INFO  org.springframework.web.servlet.DispatcherServlet:532 - Initializing Servlet 'dispatcherServlet'
+2023-06-05 21:35:03.993 =>[RMI TCP Connection(4)-169.254.210.160] == INFO  org.springframework.web.servlet.DispatcherServlet:554 - Completed initialization in 2 ms
+2023-06-05 21:35:04.095 =>[RMI TCP Connection(3)-169.254.210.160] == INFO  com.alibaba.druid.pool.DruidDataSource:1010 - {dataSource-1} inited
+2023-06-05 21:35:24.775 =>[http-nio-1000-exec-1] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:30.125 =>[http-nio-1000-exec-2] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:30.300 =>[http-nio-1000-exec-3] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:30.316 =>[http-nio-1000-exec-4] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:30.344 =>[http-nio-1000-exec-5] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:30.351 =>[http-nio-1000-exec-6] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:42.628 =>[SpringApplicationShutdownHook] == INFO  com.alibaba.druid.pool.DruidDataSource:2170 - {dataSource-1} closing ...
+2023-06-05 21:35:42.631 =>[SpringApplicationShutdownHook] == INFO  com.alibaba.druid.pool.DruidDataSource:2243 - {dataSource-1} closed
+2023-06-05 21:35:49.863 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:51 - Starting GameForumApplication using Java 18.0.2.1 with PID 28596 (E:\Codes\Local Repo\Java\GameForum\target\classes started by XiaoMouz in E:\Codes\Local Repo\Java\GameForum)
+2023-06-05 21:35:49.886 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:633 - No active profile set, falling back to 1 default profile: "default"
+2023-06-05 21:35:49.967 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-05 21:35:49.967 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-05 21:35:52.098 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108 - Tomcat initialized with port(s): 1000 (http)
+2023-06-05 21:35:52.107 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:35:52.108 =>[restartedMain] == INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+2023-06-05 21:35:52.108 =>[restartedMain] == INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-05 21:35:52.163 =>[restartedMain] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring embedded WebApplicationContext
+2023-06-05 21:35:52.163 =>[restartedMain] == INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:291 - Root WebApplicationContext: initialization completed in 2195 ms
+2023-06-05 21:35:52.446 =>[restartedMain] == INFO  com.github.yulichang.autoconfigure.MybatisPlusJoinAutoConfiguration:111 - MPJSqlInjector init
+2023-06-05 21:35:52.592 =>[restartedMain] == WARN  com.baomidou.mybatisplus.core.injector.AbstractMethod:405 - [com.mou.gameforum.mapper.user.UserMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2023-06-05 21:35:52.859 =>[restartedMain] == INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping:57 - Adding welcome page template: index
+2023-06-05 21:35:53.270 =>[restartedMain] == INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer:59 - LiveReload server is running on port 35729
+2023-06-05 21:35:53.279 =>[restartedMain] == INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-06-05 21:35:53.325 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:35:53.345 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220 - Tomcat started on port(s): 1000 (http) with context path ''
+2023-06-05 21:35:53.358 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:57 - Started GameForumApplication in 4.151 seconds (process running for 6.188)
+2023-06-05 21:35:53.518 =>[RMI TCP Connection(7)-169.254.210.160] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-05 21:35:53.518 =>[RMI TCP Connection(7)-169.254.210.160] == INFO  org.springframework.web.servlet.DispatcherServlet:532 - Initializing Servlet 'dispatcherServlet'
+2023-06-05 21:35:53.520 =>[RMI TCP Connection(7)-169.254.210.160] == INFO  org.springframework.web.servlet.DispatcherServlet:554 - Completed initialization in 2 ms
+2023-06-05 21:35:53.559 =>[RMI TCP Connection(6)-169.254.210.160] == INFO  com.alibaba.druid.pool.DruidDataSource:1010 - {dataSource-1} inited
+2023-06-05 21:35:58.520 =>[http-nio-1000-exec-1] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:58.589 =>[http-nio-1000-exec-2] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:58.592 =>[http-nio-1000-exec-3] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:58.605 =>[http-nio-1000-exec-4] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:35:58.605 =>[http-nio-1000-exec-5] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:36:05.943 =>[http-nio-1000-exec-6] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:36:40.735 =>[SpringApplicationShutdownHook] == INFO  com.alibaba.druid.pool.DruidDataSource:2170 - {dataSource-1} closing ...
+2023-06-05 21:36:40.738 =>[SpringApplicationShutdownHook] == INFO  com.alibaba.druid.pool.DruidDataSource:2243 - {dataSource-1} closed
+2023-06-05 21:36:44.430 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:51 - Starting GameForumApplication using Java 18.0.2.1 with PID 6368 (E:\Codes\Local Repo\Java\GameForum\target\classes started by XiaoMouz in E:\Codes\Local Repo\Java\GameForum)
+2023-06-05 21:36:44.441 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:633 - No active profile set, falling back to 1 default profile: "default"
+2023-06-05 21:36:44.489 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-05 21:36:44.489 =>[restartedMain] == INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor:250 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-05 21:36:46.520 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108 - Tomcat initialized with port(s): 1000 (http)
+2023-06-05 21:36:46.546 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Initializing ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:36:46.548 =>[restartedMain] == INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+2023-06-05 21:36:46.549 =>[restartedMain] == INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-05 21:36:46.793 =>[restartedMain] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring embedded WebApplicationContext
+2023-06-05 21:36:46.796 =>[restartedMain] == INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:291 - Root WebApplicationContext: initialization completed in 2305 ms
+2023-06-05 21:36:47.303 =>[restartedMain] == INFO  com.github.yulichang.autoconfigure.MybatisPlusJoinAutoConfiguration:111 - MPJSqlInjector init
+2023-06-05 21:36:47.447 =>[restartedMain] == WARN  com.baomidou.mybatisplus.core.injector.AbstractMethod:405 - [com.mou.gameforum.mapper.user.UserMapper.insert] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Insert]
+2023-06-05 21:36:47.925 =>[restartedMain] == INFO  org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping:57 - Adding welcome page template: index
+2023-06-05 21:36:48.889 =>[restartedMain] == INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer:59 - LiveReload server is running on port 35729
+2023-06-05 21:36:48.895 =>[restartedMain] == INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver:58 - Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-06-05 21:36:48.949 =>[restartedMain] == INFO  org.apache.coyote.http11.Http11NioProtocol:173 - Starting ProtocolHandler ["http-nio-1000"]
+2023-06-05 21:36:48.971 =>[restartedMain] == INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220 - Tomcat started on port(s): 1000 (http) with context path ''
+2023-06-05 21:36:48.987 =>[restartedMain] == INFO  com.mou.gameforum.GameForumApplication:57 - Started GameForumApplication in 4.978 seconds (process running for 6.514)
+2023-06-05 21:36:49.726 =>[RMI TCP Connection(7)-169.254.210.160] == INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-05 21:36:49.727 =>[RMI TCP Connection(7)-169.254.210.160] == INFO  org.springframework.web.servlet.DispatcherServlet:532 - Initializing Servlet 'dispatcherServlet'
+2023-06-05 21:36:49.728 =>[RMI TCP Connection(7)-169.254.210.160] == INFO  org.springframework.web.servlet.DispatcherServlet:554 - Completed initialization in 1 ms
+2023-06-05 21:36:49.769 =>[RMI TCP Connection(6)-169.254.210.160] == INFO  com.alibaba.druid.pool.DruidDataSource:1010 - {dataSource-1} inited
+2023-06-05 21:37:12.264 =>[http-nio-1000-exec-1] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:37:12.366 =>[http-nio-1000-exec-2] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:37:12.369 =>[http-nio-1000-exec-3] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:37:12.404 =>[http-nio-1000-exec-4] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:37:12.410 =>[http-nio-1000-exec-5] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:37:15.368 =>[http-nio-1000-exec-6] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:37:19.085 =>[http-nio-1000-exec-7] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:39:49.312 =>[http-nio-1000-exec-1] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:39:49.393 =>[http-nio-1000-exec-2] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:39:49.397 =>[http-nio-1000-exec-3] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:39:49.407 =>[http-nio-1000-exec-4] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
+2023-06-05 21:39:49.612 =>[http-nio-1000-exec-5] == INFO  com.mou.gameforum.filter.LogFilter:26 - Controller Class Name: org.apache.catalina.core.ApplicationFilterChain
