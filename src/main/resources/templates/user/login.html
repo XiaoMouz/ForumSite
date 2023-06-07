@@ -6,7 +6,7 @@
         $('#signinForm').submit(function (e) {
             e.preventDefault();
             if ($('#username').val() == '' || $('#password').val() == '') {
-                $('#error').text('请填写完整信息');
+                $('#error').text('Please fill information');
                 return;
             };
             $('#error').text('');
@@ -18,15 +18,29 @@
                 type: 'POST',
                 url: '#',
                 data: JSON.stringify(data),
-                success: function (resp) {
-                    if (resp.code!==200||resp.code!==201) {
-                        switch(resp.code){
-                            case 401 : $('#error').text("Username/Email or password is wrong");break;
-                            default : $('#error').text(resp.msg);break;
-                        }
-
-                    } else {
+                success: function () {
                         location.assign('./');
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (xhr.status === 301 || xhr.status === 302) {
+                        // 如果是跳转状态码，解析 Location 头并进行跳转
+                        const locationHeader = xhr.getResponseHeader('Location');
+                        if (locationHeader) {
+                            console.log('Jumping to:', locationHeader);
+                            location.assign(locationHeader);
+                            return;
+                        }
+                    }
+                    if(xhr.status === 200|| xhr.status === 201){
+                        location.assign('./');
+                    }
+                    let resp = xhr.responseJSON
+                    console.log(resp)
+                    switch(resp.code){
+                        case 401 : $('#error').text("Username/Email or password is wrong");break;
+                        case 403: $('#error').text("User didn't active or banned");break;
+                        default : $('#error').text(resp.msg);break;
                     }
                 },
                 contentType: 'application/json',
