@@ -2,16 +2,17 @@ package com.mou.gameforum.entity;
 
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.awt.*;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("Level 权限组")
+@Schema(description = "Level 权限组")
 @TableName("userlevels")
 public class Levels {
     /**
@@ -21,23 +22,32 @@ public class Levels {
     /**
      * 权限组名称
      */
-    @ApiModelProperty("权限组名称")
+    @Schema(description = "权限组名称")
     String levelName;
+    /**
+     * 站点管理权(是否可打开后台页)
+     */
+    @Schema(description = "权限组站点管理权")
+    Boolean manageSite;
     /**
      * 权限组阅读等级
      */
-    @ApiModelProperty("权限组阅读等级")
+    @Schema(description = "权限组阅读等级")
     Integer readLevel;
     /**
      * 权限组回复权限
      */
-    @ApiModelProperty("权限组回复权限")
+    @Schema(description = "权限组回复权限")
     Boolean reply;
     /**
      * 权限组发帖权限
      */
-    @ApiModelProperty("权限组发帖权限")
+    @Schema(description = "权限组发帖权限")
     Boolean releasePost;
+    /**
+     * 权限组颜色，默认为 #000000 黑
+     */
+    String color;
     @Override
     public String toString() {
         return JSON.toJSONString(this);

@@ -6,14 +6,14 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
-import springfox.documentation.annotations.ApiIgnore;
+
 
 import java.util.Arrays;
 import java.util.Date;
@@ -22,28 +22,28 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("User 用户")
+@Schema(description = "User 用户")
 @TableName("users")
 public class User {
     /**
      * 用户id
      */
-    @ApiModelProperty("用户 uid")
+    @Schema(description = "用户 uid")
     Integer id;
     /**
      * 用户用户名
      */
-    @ApiModelProperty("用户名")
+    @Schema(description = "用户名")
     String username;
     /**
      * 用户邮箱
      */
-    @ApiModelProperty("用户邮箱")
+    @Schema(description = "用户邮箱")
     String email;
     /**
      * 用户名称
      */
-    @ApiModelProperty("用户昵称")
+    @Schema(description = "用户昵称")
     String nickname;
     /**
      * 用户密码
@@ -53,46 +53,54 @@ public class User {
     /**
      * 用户 token
      */
-    @ApiModelProperty("用户 token")
+    @Schema(description = "用户 token")
     String token;
     /**
      * 用户状态
      */
-    @ApiModelProperty("用户状态")
+    @Schema(description = "用户状态")
     UserStatusEnum status;
     /**
      * 用户注册 ip
      */
-    @ApiModelProperty("用户注册 ip")
+    @Schema(description = "用户注册 ip")
     String registerIp;
     /**
      * 用户登录ip
      */
-    @ApiModelProperty("用户登录 ip")
+    @Schema(description = "用户登录 ip")
     String loginIp;
     /**
      * 用户注册时间
      */
-    @ApiModelProperty("用户注册时间")
+    @Schema(description = "用户注册时间")
     Date registerTime;
     /**
      * 用户登录时间
      */
-    @ApiModelProperty("用户登录时间")
+    @Schema(description = "用户登录时间")
     Date loginTime;
     /**
      * 用户头像相对路径
      */
-    @ApiModelProperty("用户头像相对路径")
+    @Schema(description = "用户头像相对路径")
     String avatar_path;
     /**
      * 用户权限组
      */
-    @ApiModelProperty("用户权限组")
+    @Schema(description = "用户权限组")
     @TableField(exist = false)
     List<Levels> levels;
 
-
+    public Levels findMaxLevel(){
+        Levels maxLevel=levels.get(0);
+        for(Levels l:this.levels){
+            if(l.getReadLevel()> maxLevel.getReadLevel()){
+                maxLevel=l;
+            }
+        }
+        return maxLevel;
+    }
     @Override
     public String toString() {
         return JSON.toJSONString(this);

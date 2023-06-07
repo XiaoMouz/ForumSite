@@ -20,8 +20,9 @@ public enum CommentStatusEnum {
     DELETED("deleted");
 
     @EnumValue
-    private String status;
+    private final String status;
 
     CommentStatusEnum(String status) {
+        this.status = status;
     }
 }

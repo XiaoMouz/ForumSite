@@ -20,6 +20,9 @@ pebble:
   prefix: templates/
   suffix: .html
   cache: false # cache config, in deploy should is true
+  exposeRequestAttributes: true
+  expose-session-attributes: true
+  greedy-match-method: true # greedy matching mode
 
 # log
 logging:
@@ -33,15 +36,11 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl # mybatis plus log config
     map-underscore-to-camel-case: false #  camel case config
-
-# swagger ui
-springfox:
-  documentation:
+springdoc:
+  api-docs:
+    path: /api-docs
+    version: openapi_3_0
+  swagger-ui:
     enabled: true
-    swagger-ui:
-      enabled: true
-      base-url: api-docs
-    swagger:
-      v2:
-        enabled: true
-        host: localhost:1000
+    disable-swagger-default-url: true
+    url: /api-docs

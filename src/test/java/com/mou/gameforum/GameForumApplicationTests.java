@@ -51,6 +51,7 @@ class GameForumApplicationTests {
     void testUserServiceLogin(){
         User user = userService.loginByDto(new UserLoginDto("XiaoMouz","123456"), new NetworkRequestDto("::1",new Date()));
         System.out.println(user);
+
     }
 }
 

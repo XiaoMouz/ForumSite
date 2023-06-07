@@ -21,8 +21,9 @@ public enum PostStatusEnum {
     DELETED("deleted");
 
     @EnumValue
-    private String status;
+    private final String status;
 
     PostStatusEnum(String status) {
+        this.status = status;
     }
 }

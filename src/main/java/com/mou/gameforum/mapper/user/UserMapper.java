@@ -25,10 +25,10 @@ public interface UserMapper extends MPJBaseMapper<User> {
 
     /**
      * 根据登录 dto 邮箱获取用户
-     * @param loginDto 登录 dto，包含邮箱和 md5 密码
+     * @param loginDto 登录 dto，包含邮箱和 md5 密码，username 即为邮箱
      * @return 用户
      */
-    @Select("select * from users where email = #{email} and password = #{password}")
+    @Select("select * from users where email = #{username} and password = #{password}")
     User getUserByUserDtoEmail(UserLoginDto loginDto);
 
     /**

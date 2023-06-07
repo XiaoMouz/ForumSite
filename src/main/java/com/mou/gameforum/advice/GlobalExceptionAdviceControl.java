@@ -1,5 +1,6 @@
 package com.mou.gameforum.advice;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +15,8 @@ public class GlobalExceptionAdviceControl {
      * @return ModelAndView
      */
     @RequestMapping("/404")
-    public ModelAndView error404(){
+    public ModelAndView error404(HttpServletResponse response){
+        response.setStatus(404);
         return new ModelAndView("error/404");
     }
 

@@ -17,8 +17,9 @@ public enum UserStatusEnum {
     BANNED("banned");
     
     @EnumValue
-    private String status;
+    private final String status;
 
     UserStatusEnum(String status) {
+        this.status=status;
     }
 }
