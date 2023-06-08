@@ -58,6 +58,17 @@ public class UserControl {
         return new ModelAndView("redirect:/","user",verifyUser);
     }
 
+    @GetMapping("/register")
+    public ModelAndView register(HttpServletResponse response,
+                                 HttpSession session,
+                                 HttpServletRequest request){
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            return new ModelAndView("redirect:/", "user", user);
+        }
+        return new ModelAndView("user/register");
+    }
+
     @GetMapping("/logout")
     public ModelAndView logout(HttpServletResponse response,
                                HttpSession session,
