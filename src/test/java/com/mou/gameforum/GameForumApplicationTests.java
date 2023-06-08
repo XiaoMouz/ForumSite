@@ -1,5 +1,6 @@
 package com.mou.gameforum;
 
+import com.mou.gameforum.entity.Levels;
 import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
@@ -51,6 +52,10 @@ class GameForumApplicationTests {
     void testUserServiceLogin(){
         User user = userService.loginByDto(new UserLoginDto("XiaoMouz","123456"), new NetworkRequestDto("::1",new Date()));
         System.out.println(user);
+        for(Levels level : user.getLevels()){
+
+            System.out.println(level);
+        }
 
 
     }

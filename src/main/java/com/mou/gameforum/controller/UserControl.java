@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Objects;
 
 @Controller
 public class UserControl {
@@ -57,6 +58,14 @@ public class UserControl {
         return new ModelAndView("redirect:/","user",verifyUser);
     }
 
+    @GetMapping("/logout")
+    public ModelAndView logout(HttpServletResponse response,
+                               HttpSession session,
+                               HttpServletRequest request) throws IOException {
+        session.removeAttribute("user");
+        return new ModelAndView("redirect:/");
+    }
+
     @GetMapping("/user/{id}")
     public ModelAndView userProfile(@PathVariable Integer id,
                                     HttpServletResponse response,
@@ -64,6 +73,9 @@ public class UserControl {
                                     HttpServletRequest request
                                     ){
         User user = (User) session.getAttribute("user");
-        return new ModelAndView("user/profile","user",user);
+        if(!Objects.equals(id, user.getId())){
+            new ModelAndView("user/profile","self",false);
+        }
+        return new ModelAndView("user/profile","self",true);
     }
 }

@@ -51,19 +51,26 @@
 </script>
 
 <form id="signinForm">
+    <h1 class="h3 mb-3 fw-normal">Login</h1>
     <div class="form-group">
         <p id="error" class="text-danger"></p>
     </div>
-    <div class="form-group">
-        <label>Username</label>
-        <input id="username" type="username" class="form-control" placeholder="Username">
+    <div class="w-50 form-floating mb-3">
+        <input type="username" class="form-control" id="username" placeholder="Username or Email">
+        <label for="username">Username or Email</label>
     </div>
-    <div class="form-group">
-        <label>Password</label>
+    <div class="w-50 form-floating mb-3">
         <input id="password" type="password" class="form-control" placeholder="Password">
+        <label for="password">Password</label>
     </div>
-    <button type="submit" class="btn btn-outline-primary">Login</button> or <a type="button" href="./register" class="btn btn-outline-secondary">Register</a>
-    <br><br>
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" checked="checked" value="remember-me"> Remember me
+        </label>
+    </div>
+    <div class="mb-3">
+        <button class="w-25 btn btn-lg btn-primary" type="submit">Login</button> or <a type="button" href="./register" class="w-20 btn btn-lg btn-secondary hide">Register</a>
+    </div>
     Forget password?<a href="./reset">Reset password</a>
 </form>
 {% endblock %}
