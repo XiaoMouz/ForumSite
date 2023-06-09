@@ -4,6 +4,7 @@
 <script>
     $(function () {
         $('#signinForm').submit(function (e) {
+            $('#signinForm button').addClass('disabled');
             e.preventDefault();
             if ($('#username').val() == '' || $('#password').val() == '') {
                 $('#error').text('Please fill information');
@@ -19,7 +20,7 @@
                 url: '#',
                 data: JSON.stringify(data),
                 success: function () {
-                        location.assign('./');
+                    location.assign('./');
                 },
                 error: function (xhr) {
                     console.log(xhr);
@@ -32,15 +33,16 @@
                             return;
                         }
                     }
-                    if(xhr.status === 200|| xhr.status === 201){
+                    if (xhr.status === 200 || xhr.status === 201) {
                         location.assign('./');
                     }
+                    $('#signinForm button').removeClass('disabled');
                     let resp = xhr.responseJSON
                     console.log(resp)
-                    switch(resp.code){
-                        case 401 : $('#error').text("Username/Email or password is wrong");break;
-                        case 403: $('#error').text("User didn't active or banned");break;
-                        default : $('#error').text(resp.msg);break;
+                    switch (resp.code) {
+                        case 401: $('#error').text("Username/Email or password is wrong"); break;
+                        case 403: $('#error').text("User didn't active or banned"); break;
+                        default: $('#error').text(resp.msg); break;
                     }
                 },
                 contentType: 'application/json',
@@ -69,7 +71,8 @@
         </label>
     </div>
     <div class="mb-3">
-        <button class="w-25 btn btn-lg btn-primary" type="submit">Login</button> or <a type="button" href="./register" class="w-20 btn btn-lg btn-secondary hide">Register</a>
+        <button class="w-25 btn btn-lg btn-primary" type="submit">Login</button> or <a type="button" href="./register"
+            class="w-20 btn btn-lg btn-secondary hide">Register</a>
     </div>
     Forget password?<a href="./reset">Reset password</a>
 </form>
