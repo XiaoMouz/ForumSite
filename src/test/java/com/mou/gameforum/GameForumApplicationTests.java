@@ -5,7 +5,9 @@ import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
+import com.mou.gameforum.entity.vo.EmailTemplate;
 import com.mou.gameforum.mapper.user.UserMapper;
+import com.mou.gameforum.service.EmailService;
 import com.mou.gameforum.service.user.UserService;
 import com.mou.gameforum.utils.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,9 @@ class GameForumApplicationTests {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    EmailService emailService;
 
     @Test
     void testMySQlInsert(){
@@ -56,8 +61,15 @@ class GameForumApplicationTests {
 
             System.out.println(level);
         }
+    }
 
-
+    @Test
+    void testEmailSender(){
+        if(emailService.sendEmail("gxiaomouz@gmail.com", new EmailTemplate("测试邮件", "测试邮件内容","按钮","http://127.0.0.1:1000","Hello test"))){
+            System.out.println("发送成功");
+        }else {
+            System.out.println("发送失败");
+        }
     }
 }
 
