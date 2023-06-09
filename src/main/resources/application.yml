@@ -14,6 +14,10 @@ spring:
       initial-size: 5
       max-active: 10
     driver-class-name:
+  mail:
+    host: smtp.mou.best
+    username: forum@mou.best
+    password: "*pR@5CFFM9p@#Hq"
 
 pebble:
   enabled: true
