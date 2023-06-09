@@ -1,11 +1,12 @@
 package com.mou.gameforum.mapper.user;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.yulichang.base.MPJBaseMapper;
 import com.mou.gameforum.entity.Levels;
 import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
+import com.mou.gameforum.entity.dto.UserRegisterDto;
+import com.mou.gameforum.entity.enums.UserStatusEnum;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -32,6 +33,14 @@ public interface UserMapper extends MPJBaseMapper<User> {
     User getUserByUserDtoEmail(UserLoginDto loginDto);
 
     /**
+     * 根据注册 dto 获取用户
+     * @param dto 注册 dto，包含用户名和邮箱
+     * @return 用户
+     */
+    @Select("select * from users where username = #{username} or email = #{email}")
+    User getUserByRegisterDto(UserRegisterDto dto);
+
+    /**
      * 更新用户的登录时间和 IP
      * @param user 用户
      * @param requestDto 请求 dto，包含了 ip 和时间
@@ -40,12 +49,30 @@ public interface UserMapper extends MPJBaseMapper<User> {
     void updateUserLoginTimeAndIp(User user, NetworkRequestDto requestDto);
 
     /**
-     * 获取对应用户的权限组
-     * @param user 用户
-     * @return 权限组列表
+     * 激活用户
+     * @param username 用户名
+     * @param token token
+     * @param status 用户状态
+     * @return 更新的行数
      */
-    @Select("select * from users_levels where id in (select lId from users_levels where uId = #{id})")
-    List<Levels> getUserLevels(User user);
+    @Update("update users set status = #{status} where username = #{username} and token = #{token}")
+    int updateUserStatus(String username, String token, UserStatusEnum status);
+
+    /**
+     * 清除用户的 token
+     *
+     * @param user 用户
+     */
+    @Update("update users set token = null where id = #{id}")
+    void cleanUserToken(User user);
+
+    /**
+     * 根据用户名获取用户
+     * @param username 用户名
+     * @return 用户
+     */
+    @Select("select * from users where username = #{username}")
+    User selectUserByUsername(String username);
 
     /**
      * 重写后的 insert ，屏蔽了 id
@@ -53,6 +80,6 @@ public interface UserMapper extends MPJBaseMapper<User> {
      * @return 插入的行数
      */
     @Override
-    @Insert("insert into users(username, nickname , password, email, loginTime, loginIp, registerIp, registerTime) values(#{username}, #{nickname}, #{password}, #{email}, #{loginTime}, #{loginIp}, #{registerIp}, #{registerTime})")
+    @Insert("insert into users(username, nickname , password, email, token, loginTime, loginIp, registerIp, registerTime) values(#{username}, #{nickname}, #{password}, #{email}, #{token}, #{loginTime}, #{loginIp}, #{registerIp}, #{registerTime})")
     int insert(User entity);
 }

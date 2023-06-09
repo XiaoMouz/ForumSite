@@ -4,6 +4,7 @@
 <script>
     $(function () {
         $('#regForm').submit(function (e) {
+            $('#regForm button').addClass('disabled');
             e.preventDefault()
             if ($('#username').val() == '' || $('#email').val() == '' || $('#password').val() == '') {
                 $('#error').text('请填写完整信息');
@@ -24,6 +25,7 @@
             $('#error').text('');
             let data = {
                 username: $('#username').val(),
+                nickname: $('#nickname').val(),
                 email: $('#email').val(),
                 password: $('#password').val()
             };
@@ -32,10 +34,28 @@
                 url: '#',
                 data: JSON.stringify(data),
                 success: function (resp) {
-                    if (resp.error) {
-                        $('#error').text(resp.error);
-                    } else {
-                        location.assign('./');
+                    location.assign('/register/verify');
+                },
+                error: function (xhr){
+                    console.log(xhr);
+                    if (xhr.status === 301 || xhr.status === 302) {
+                        // 如果是跳转状态码，解析 Location   头并进行跳转
+                        const locationHeader = xhr.getResponseHeader('Location');
+                        if (locationHeader) {
+                            console.log('Jumping to:', locationHeader);
+                            location.assign(locationHeader);
+                            return;
+                        }
+                    }
+                    if (xhr.status === 200 || xhr.status === 201) {
+                        location.assign('/register/verify');
+                    }
+                    $('#regForm button').removeClass('disabled');
+                    let resp = xhr.responseJSON
+                    console.log(resp)
+                    switch (resp.code) {
+                        case 409: $('#error').text("Username/Email is exist"); break;
+                        default: $('#error').text(resp.msg); break;
                     }
                 },
                 contentType: 'application/json',
@@ -49,25 +69,29 @@
 
 
 <h1 class="h3 mb-3 fw-normal">Register</h1>
-<div class="form-group">
-    <p id="error" class="text-danger"></p>
-</div>
-<div class="w-50 form-floating mb-3">
-    <input type="username" class="form-control" id="username" placeholder="Username">
-    <label for="username">Username</label>
-</div>
-<div class="w-50 form-floating mb-3">
-    <input type="email" class="form-control" id="email" placeholder="Email">
-    <label for="email">Email</label>
-</div>
-<div class="w-50 form-floating mb-3">
-    <input id="password" type="password" class="form-control" placeholder="Password">
-    <label for="password">Password</label>
-</div>
+    <div class="form-group">
+        <p id="error" class="text-danger"></p>
+    </div>
+    <div class="w-50 form-floating mb-3">
+        <input type="username" class="form-control" id="username" placeholder="Username">
+        <label for="username">Username</label>
+    </div>
+    <div class="w-50 form-floating mb-3">
+        <input type="nickname" class="form-control" id="nickname" placeholder="nickname">
+        <label for="nickname">Nickname</label>
+    </div>
+    <div class="w-50 form-floating mb-3">
+        <input type="email" class="form-control" id="email" placeholder="Email">
+        <label for="email">Email</label>
+    </div>
+    <div class="w-50 form-floating mb-3">
+        <input id="password" type="password" class="form-control" placeholder="Password">
+        <label for="password">Password</label>
+    </div>
 
-<div class="mb-3">
-    <button class="w-25 btn btn-lg btn-primary" type="submit">Register</button> or <a type="button" href="./register" class="w-20 btn btn-lg btn-secondary hide">Verify Account</a>
-</div>
-Have account? <a href="/login">Login</a>
+    <div class="mb-3">
+        <button class="w-25 btn btn-lg btn-primary" type="submit">Register</button> or <a type="button" href="/register/verify" class="w-20 btn btn-lg btn-secondary hide">Verify Account</a>
+    </div>
+    Have account? <a href="/login">Login</a>
 </form>
 {% endblock %}

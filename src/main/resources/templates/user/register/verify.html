@@ -1,0 +1,25 @@
+{% extends "_base" %}
+
+{% block main %}
+<form id="verifyForm" method="get" action="/register/verify">
+    <div class="form-group">
+        <p id="error" class="text-danger">{{message}}</p>
+    </div>
+    {% if username!=null %}
+    <div class="w-50 form-floating mb-3">
+        <input name="username" type="text" class="form-control disabled"  value="{{username}}" id="username" placeholder="Username">
+        <label for="username">Username</label>
+    </div>
+    {% else %}
+    <div class="w-50 form-floating mb-3">
+        <input name="username" type="text" class="form-control" id="username" placeholder="Username">
+        <label for="username">Username</label>
+    </div>
+    {% endif %}
+    <div class="w-50 form-floating mb-3">
+        <input name="token" type="text" class="form-control" id="verify" placeholder="Verify Code" value="{{token}}">
+        <label for="verify">Verify Code</label>
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Done</button>
+</form>
+{% endblock %}

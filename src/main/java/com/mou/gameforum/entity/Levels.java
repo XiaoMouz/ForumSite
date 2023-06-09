@@ -35,6 +35,16 @@ public class Levels {
     @Schema(description = "权限组阅读等级")
     Integer readLevel;
     /**
+     * 是否是默认的验证后权限组
+     */
+    @Schema(description = "是否是默认验证后权限组")
+    Boolean verifyLevel;
+    /**
+     * 是否是默认待验证权限组
+     */
+    @Schema(description = "是否是默认待验证权限组")
+    Boolean pendingLevel;
+    /**
      * 权限组回复权限
      */
     @Schema(description = "权限组回复权限")

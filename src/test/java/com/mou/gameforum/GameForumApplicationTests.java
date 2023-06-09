@@ -55,7 +55,7 @@ class GameForumApplicationTests {
 
     @Test
     void testUserServiceLogin(){
-        User user = userService.loginByDto(new UserLoginDto("XiaoMouz","123456"), new NetworkRequestDto("::1",new Date()));
+        User user = userService.loginByDto(new UserLoginDto("Yukii","123456"), new NetworkRequestDto("::1",new Date()));
         System.out.println(user);
         for(Levels level : user.getLevels()){
 

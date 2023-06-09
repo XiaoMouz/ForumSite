@@ -3,6 +3,7 @@ package com.mou.gameforum.controller;
 import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
+import com.mou.gameforum.entity.dto.UserRegisterDto;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
 import com.mou.gameforum.entity.vo.RequestResult;
 import com.mou.gameforum.service.user.UserService;
@@ -67,6 +68,51 @@ public class UserControl {
             return new ModelAndView("redirect:/", "user", user);
         }
         return new ModelAndView("user/register");
+    }
+
+    @PostMapping("/register")
+    public ModelAndView register(@RequestBody UserRegisterDto user,
+                                 HttpServletResponse response,
+                                 HttpSession session,
+                                 HttpServletRequest request) throws IOException {
+        NetworkRequestDto nqd = new NetworkRequestDto(request.getRemoteAddr(),new Date());
+        String token = userService.registerByDto(user,nqd);
+        if(token == null){
+            response.setStatus(409);
+            ResponseUtils.responseJson(response,new RequestResult<>(409,"用户名或邮箱已注册",null));
+            return null;
+        }
+        session.setAttribute("username",user.getUsername());
+        return new ModelAndView("redirect:/register/verify","username",user.getUsername());
+    }
+
+    @GetMapping("/register/verify")
+    public ModelAndView registerVerify(String username,
+                                       String token,
+                                       HttpServletResponse response,
+                                       HttpSession session,
+                                       HttpServletRequest request){
+        if(username==null&&token==null){
+            return new ModelAndView("user/register/verify");
+        }
+        if(token==null){
+            return new ModelAndView("user/register/verify","username",username);
+        }
+        if(username==null){
+            return new ModelAndView("user/register");
+        }
+        User user = userService.verifyRegisterUser(username,token);
+
+        if(user==null){
+            ModelAndView mav = new ModelAndView("user/register/verify");
+            mav.addObject("message",
+                    "Your token is wrong or username not exist");
+            return mav;
+        }
+
+        session.removeAttribute("user");
+        session.removeAttribute("username");
+        return new ModelAndView("redirect:/");
     }
 
     @GetMapping("/logout")

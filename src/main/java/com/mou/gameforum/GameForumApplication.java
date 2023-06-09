@@ -48,12 +48,11 @@ public class GameForumApplication {
                         .excludePathPatterns(
                                 "/404",
                                 "/500",
-                                "/login",
-                                "/register",
+                                "/login/**",
+                                "/register/**",
+                                "/reset/**",
                                 "/logout",
                                 "/api/**",
-                                "/api",
-                                "/assets",
                                 "/assets/**",
                                 "/"
                         ); // 例外路径
