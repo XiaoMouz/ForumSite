@@ -238,7 +238,7 @@
                                 <div class="col-lg-3 col-md-4 label">Levels</div>
                                 <div class="col-lg-9 col-md-8">
                                     {% for level in guest.getLevels() %}
-                                    <span style="color: {{level.getColor()}} ;">{{guest.getLevelName()}}</span>&nbsp;&nbsp;
+                                    <span style="color: {{level.getColor()}} ;">{{level.getLevelName()}}</span>&nbsp;&nbsp;
                                     {% endfor %}
                                 </div>
                             </div>
@@ -266,6 +266,8 @@
                             </div>
                         </div>
                         {% endif %}
+
+                        {% if self %}
                         <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                             <!-- Profile Edit Form -->
                             <form>
@@ -420,6 +422,7 @@
                             </form>
                             <!-- End Change Password Form -->
                         </div>
+                        {% endif %}
                     </div>
                     <!-- End Bordered Tabs -->
                 </div>

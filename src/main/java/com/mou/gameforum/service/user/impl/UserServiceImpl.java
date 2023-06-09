@@ -115,7 +115,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer id) {
         User user = userMapper.selectById(id);
-        user.setLevels(levelsMapper.getUserLevels(user));
+        if(user!=null){
+            ArrayList<Levels> list = new ArrayList<>();
+            levelsMapper.getUserLevels(user).forEach(
+                    u -> {
+                        list.add(levelsMapper.selectById(u.getId()));
+                    }
+            );
+            user.setLevels(list);
+        }
         return user;
     }
 }
