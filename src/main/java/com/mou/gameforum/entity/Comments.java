@@ -46,6 +46,12 @@ public class Comments {
      */
     @Schema(description = "评论状态")
     CommentStatusEnum status;
+    /**
+     * 点赞数
+     */
+    @Schema(description = "点赞数")
+    Integer likes;
+
     @Override
     public String toString() {
         return JSON.toJSONString(this);

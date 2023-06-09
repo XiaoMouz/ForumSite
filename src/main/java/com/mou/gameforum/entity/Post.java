@@ -2,6 +2,7 @@ package com.mou.gameforum.entity;
 
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -55,7 +56,24 @@ public class Post {
      * 评论
      */
     @Schema(description = "文章评论")
+    @TableField(exist = false)
     List<Comments> comments;
+    /**
+     * 观看量
+     */
+    @Schema(description = "观看量")
+    Integer views;
+    /**
+     * 评论数
+     */
+    @Schema(description = "评论数")
+    @TableField("comts")
+    Integer commentsCount;
+    /**
+     * 点赞数
+     */
+    @Schema(description = "点赞数")
+    Integer likes;
     @Override
     public String toString() {
         return JSON.toJSONString(this);
