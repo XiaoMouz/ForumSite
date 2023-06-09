@@ -111,4 +111,11 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public User getUserById(Integer id) {
+        User user = userMapper.selectById(id);
+        user.setLevels(levelsMapper.getUserLevels(user));
+        return user;
+    }
 }

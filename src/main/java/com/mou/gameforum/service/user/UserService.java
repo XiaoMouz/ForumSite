@@ -31,4 +31,11 @@ public interface UserService {
      * @return 返回用户数据
      */
     User verifyRegisterUser(String username,String token);
+
+    /**
+     * 根据 id 获取用户
+     * @param id 用户 id
+     * @return 用户
+     */
+    User getUserById(Integer id);
 }

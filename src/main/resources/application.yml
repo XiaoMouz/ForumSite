@@ -34,8 +34,8 @@ pebble:
 logging:
   config: classpath:log4j2.xml
   level:
-    root: debug
-    com.mou.gameforum.controller: debug
+    root: info
+    com.mou.gameforum.controller: info
     com.baomidou.mybatisplus: debug
 
 mybatis-plus:

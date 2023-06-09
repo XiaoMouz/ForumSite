@@ -25,6 +25,14 @@ import java.util.Objects;
 public class UserControl {
     @Resource
     UserService userService;
+
+    /**
+     * 用户登录页面
+     * @param response response
+     * @param session session
+     * @param request request
+     * @return 用户登录页
+     */
     @GetMapping("/login")
     public ModelAndView login(HttpServletResponse response,
                               HttpSession session,
@@ -37,6 +45,16 @@ public class UserControl {
 
         return new ModelAndView("user/login");
     }
+
+    /**
+     * 用户登录 Post 请求处理
+     * @param user 用户登录 dto
+     * @param response response
+     * @param session session
+     * @param request request
+     * @return 登录成功重定向到首页，失败返回 json 供异步
+     * @throws IOException IOException
+     */
     @PostMapping("/login")
     public ModelAndView login(@RequestBody UserLoginDto user,
                               HttpServletResponse response,
@@ -59,6 +77,13 @@ public class UserControl {
         return new ModelAndView("redirect:/","user",verifyUser);
     }
 
+    /**
+     * 用户注册页面
+     * @param response response
+     * @param session session
+     * @param request request
+     * @return 用户注册页
+     */
     @GetMapping("/register")
     public ModelAndView register(HttpServletResponse response,
                                  HttpSession session,
@@ -70,6 +95,15 @@ public class UserControl {
         return new ModelAndView("user/register");
     }
 
+    /**
+     * 用户注册 Post 请求处理
+     * @param user 用户注册 dto
+     * @param response response
+     * @param session session
+     * @param request request
+     * @return 注册成功重定向到验证页，失败返回 json 供异步
+     * @throws IOException IOException
+     */
     @PostMapping("/register")
     public ModelAndView register(@RequestBody UserRegisterDto user,
                                  HttpServletResponse response,
@@ -86,6 +120,15 @@ public class UserControl {
         return new ModelAndView("redirect:/register/verify","username",user.getUsername());
     }
 
+    /**
+     * 用户注册后验证页
+     * @param username 用户名
+     * @param token 验证码
+     * @param response response
+     * @param session session
+     * @param request request
+     * @return 验证页
+     */
     @GetMapping("/register/verify")
     public ModelAndView registerVerify(String username,
                                        String token,
@@ -115,6 +158,14 @@ public class UserControl {
         return new ModelAndView("redirect:/");
     }
 
+    /**
+     * 用户登出
+     * @param response response
+     * @param session session
+     * @param request request
+     * @return 重定向到首页
+     * @throws IOException IOException
+     */
     @GetMapping("/logout")
     public ModelAndView logout(HttpServletResponse response,
                                HttpSession session,
@@ -123,16 +174,38 @@ public class UserControl {
         return new ModelAndView("redirect:/");
     }
 
+    /**
+     * 用户个人信息页
+     * @param id 请求的 用户 id
+     * @param response response
+     * @param session session
+     * @param request request
+     * @return 个人信息页
+     */
     @GetMapping("/user/{id}")
     public ModelAndView userProfile(@PathVariable Integer id,
                                     HttpServletResponse response,
                                     HttpSession session,
                                     HttpServletRequest request
-                                    ){
+                                    ) {
         User user = (User) session.getAttribute("user");
-        if(!Objects.equals(id, user.getId())){
-            new ModelAndView("user/profile","self",false);
+
+        ModelAndView mav = new ModelAndView("user/profile");
+        if (Objects.equals(user.getId(), id)) {
+            mav.addObject("self", true);
+            return mav;
+
         }
-        return new ModelAndView("user/profile","self",true);
+        user = userService.getUserById(id);
+        if (user == null) {
+            mav.addObject("self", true);
+            mav.addObject("message", "User is not exist");
+            return mav;
+        }
+        mav.clear();
+        mav = new ModelAndView("user/profile");
+        mav.addObject("guest", user);
+        mav.addObject("self", false);
+        return mav;
     }
 }
