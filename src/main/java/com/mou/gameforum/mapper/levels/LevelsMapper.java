@@ -30,8 +30,7 @@ public interface LevelsMapper extends MPJBaseMapper<Levels> {
      * @param user 用户
      * @return 权限组列表
      */
-    //todo: waiting fix bug, cannot select user levels
-    @Select("select * from users_levels where id in (select lId from users_levels where uId = #{id})")
+    @Select("select * from userlevels where id in (select lId from users_levels where uId = #{id})")
     List<Levels> getUserLevels(User user);
 
     /**
