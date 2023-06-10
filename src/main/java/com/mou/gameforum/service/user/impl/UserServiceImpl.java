@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
                         "Register verify",
                         "Your register verify code is "+user.getToken()+", you can click button to verify your account",
                         "Verify Account",
-                        "http://+"+ domain+"/user/verify?username="+user.getUsername()+"&token="+user.getToken(),
+                        "http://"+ domain+"/register/verify?username="+user.getUsername()+"&token="+user.getToken(),
                         "We didn't have verify time limit, but we suggest you verify your account as soon as possible"
                 )
         )).start();
