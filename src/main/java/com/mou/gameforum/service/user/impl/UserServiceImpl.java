@@ -50,9 +50,7 @@ public class UserServiceImpl implements UserService {
             userMapper.updateUserLoginTimeAndIp(user,requestDto);
             ArrayList<Levels> list = new ArrayList<>();
             levelsMapper.getUserLevels(user).forEach(
-                    u -> {
-                        list.add(levelsMapper.selectById(u.getId()));
-                    }
+                    u -> list.add(levelsMapper.selectById(u.getId()))
             );
             user.setLevels(list);
         }
@@ -80,18 +78,16 @@ public class UserServiceImpl implements UserService {
         user.setToken(StringUtils.getUUID());
         userMapper.insert(user);
         levelsMapper.addUserLevel(userMapper.selectUserByUsername(user.getUsername()),levelsMapper.getPendingLevel());
-        new Thread(() -> {
-            emailService.sendEmail(
-                    user.getEmail(),
-                    new EmailTemplate(
-                            "Register verify",
-                            "Your register verify code is "+user.getToken()+", you can click button to verify your account",
-                            "Verify Account",
-                            "http://+"+ domain+"/user/verify?username="+user.getUsername()+"&token="+user.getToken(),
-                            "We didn't have verify time limit, but we suggest you verify your account as soon as possible"
-                    )
-            );
-        }).start();
+        new Thread(() -> emailService.sendEmail(
+                user.getEmail(),
+                new EmailTemplate(
+                        "Register verify",
+                        "Your register verify code is "+user.getToken()+", you can click button to verify your account",
+                        "Verify Account",
+                        "http://+"+ domain+"/user/verify?username="+user.getUsername()+"&token="+user.getToken(),
+                        "We didn't have verify time limit, but we suggest you verify your account as soon as possible"
+                )
+        )).start();
         return user.getToken();
     }
 
@@ -118,9 +114,7 @@ public class UserServiceImpl implements UserService {
         if(user!=null){
             ArrayList<Levels> list = new ArrayList<>();
             levelsMapper.getUserLevels(user).forEach(
-                    u -> {
-                        list.add(levelsMapper.selectById(u.getId()));
-                    }
+                    u -> list.add(levelsMapper.selectById(u.getId()))
             );
             user.setLevels(list);
         }
