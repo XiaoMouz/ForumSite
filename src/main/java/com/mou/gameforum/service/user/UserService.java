@@ -38,4 +38,13 @@ public interface UserService {
      * @return 用户
      */
     User getUserById(Integer id);
+
+    /**
+     * 根据 USERNAME 或 邮箱 获取用户
+     * @param username 用户 username 或邮箱
+     * @return 用户
+     */
+    User getUserByUsername(String username);
+
+    String resendVerifyToken(User user);
 }

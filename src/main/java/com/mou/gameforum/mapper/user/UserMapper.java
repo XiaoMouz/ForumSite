@@ -75,6 +75,22 @@ public interface UserMapper extends MPJBaseMapper<User> {
     User selectUserByUsername(String username);
 
     /**
+     * 根据邮箱获取用户
+     * @param email 邮箱
+     * @return 用户
+     */
+    @Select("select * from users where email = #{email}")
+    User selectUserByEmail(String email);
+
+    /**
+     * 更新用户 token
+     * @param user 用户
+     * @param token token
+     */
+    @Update("update users set token = #{token} where id = #{user.id}")
+    void updateUserToken(User user,String token);
+
+    /**
      * 重写后的 insert ，屏蔽了 id
      * @param entity 用户
      * @return 插入的行数
@@ -82,4 +98,5 @@ public interface UserMapper extends MPJBaseMapper<User> {
     @Override
     @Insert("insert into users(username, nickname , password, email, token, loginTime, loginIp, registerIp, registerTime) values(#{username}, #{nickname}, #{password}, #{email}, #{token}, #{loginTime}, #{loginIp}, #{registerIp}, #{registerTime})")
     int insert(User entity);
+
 }

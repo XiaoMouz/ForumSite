@@ -48,11 +48,7 @@ public class UserServiceImpl implements UserService {
 
         if(user!=null){
             userMapper.updateUserLoginTimeAndIp(user,requestDto);
-            ArrayList<Levels> list = new ArrayList<>();
-            levelsMapper.getUserLevels(user).forEach(
-                    u -> list.add(levelsMapper.selectById(u.getId()))
-            );
-            user.setLevels(list);
+            user = setUserLevels(user);
         }
         return user;
     }
@@ -75,7 +71,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        user.setToken(StringUtils.getUUID());
+        user.setToken(StringUtils.getUUID().substring(0,6));
         userMapper.insert(user);
         levelsMapper.addUserLevel(userMapper.selectUserByUsername(user.getUsername()),levelsMapper.getPendingLevel());
         new Thread(() -> emailService.sendEmail(
@@ -111,6 +107,45 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer id) {
         User user = userMapper.selectById(id);
+        if(user!=null){
+            user =setUserLevels(user);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        User user;
+        if(username.contains("@")){
+            user = userMapper.selectUserByEmail(username);
+        }else{
+            user = userMapper.selectUserByUsername(username);
+        }
+
+        if(user!=null){
+            user = setUserLevels(user);
+        }
+        return user;
+    }
+
+    @Override
+    public String resendVerifyToken(User user) {
+        user.setToken(StringUtils.getUUID().substring(0,6));
+        userMapper.updateUserToken(user,user.getToken());
+        new Thread(() -> emailService.sendEmail(
+                user.getEmail(),
+                new EmailTemplate(
+                        "Register verify",
+                        "Your register verify code is "+user.getToken()+", you can click button to verify your account",
+                        "Verify Account",
+                        "http://"+ domain+"/register/verify?username="+user.getUsername()+"&token="+user.getToken(),
+                        "We didn't have verify time limit, but we suggest you verify your account as soon as possible"
+                )
+        )).start();
+        return user.getToken();
+    }
+
+    private User setUserLevels(User user) {
         if(user!=null){
             ArrayList<Levels> list = new ArrayList<>();
             levelsMapper.getUserLevels(user).forEach(

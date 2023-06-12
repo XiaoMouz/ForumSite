@@ -45,6 +45,11 @@ public class Levels {
     @Schema(description = "是否是默认待验证权限组")
     Boolean pendingLevel;
     /**
+     * 是否是默认禁言权限组
+     */
+    @Schema(description = "是否是禁言权限组")
+    Boolean muteLevel;
+    /**
      * 权限组回复权限
      */
     @Schema(description = "权限组回复权限")

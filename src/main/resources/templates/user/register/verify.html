@@ -21,5 +21,56 @@
         <label for="verify">Verify Code</label>
     </div>
     <button type="submit" class="btn btn-outline-primary">Done</button>
+    <a class="btn btn-outline-secondary" id="resend">Resend</a>
 </form>
+
+<script>
+    // when resend link click after the text set timer 60s
+    $(function () {
+        $("#resend").click(function () {
+            sendRequest();
+            setTimer();
+        });
+    })
+    function setTimer() {
+        // add disable class
+        document.getElementById("resend").classList.add("disabled");
+        var time = 60;
+        var resend = document.getElementById("resend");
+        resend.innerHTML = time + "s";
+        var timer = setInterval(function () {
+            time--;
+            resend.innerHTML = time + "s";
+            if (time == 0) {
+                clearInterval(timer);
+                // remove disable class
+                document.getElementById("resend").classList.remove("disabled");
+                resend.innerHTML = "Resend";
+            }
+        }, 1000);
+    }
+
+    // when resend link click send request to server
+    // todo: bug
+    function sendRequest() {
+        document.getElementById("resend").addEventListener("click", function (event) {
+            event.preventDefault();
+            var username = document.getElementById("username").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/register/verify/resend?username=" + username, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.status == 200) {
+                    var response = xhr.responseJSON;
+                    if (response.code == "201"||response.code == "200") {
+                        $("error").text(response.msg);
+                        setTimer();
+                    } else {
+                        $("error").text(response.msg);
+                    }
+                }
+            }
+            xhr.send();
+    });
+    }
+</script>
 {% endblock %}

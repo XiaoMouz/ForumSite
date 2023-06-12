@@ -111,9 +111,21 @@ public class UserControl {
                                  HttpServletRequest request) throws IOException {
         NetworkRequestDto nqd = new NetworkRequestDto(request.getRemoteAddr(),new Date());
         String token = userService.registerByDto(user,nqd);
+        // check username is illegal
+        if(user.getUsername()==null||user.getUsername().length()<3||user.getUsername().length()>16||!user.getUsername().matches("[a-zA-Z0-9 ]*")){
+            response.setStatus(400);
+            ResponseUtils.responseJson(response,new RequestResult<>(400,"Username not illegal",null));
+            return null;
+        }
+        if(user.getEmail()==null||user.getEmail().length()<3||user.getEmail().length()>30||!user.getEmail().contains("@")){
+            response.setStatus(400);
+            ResponseUtils.responseJson(response,new RequestResult<>(400,"Email not illegal",null));
+            return null;
+        }
+
         if(token == null){
             response.setStatus(409);
-            ResponseUtils.responseJson(response,new RequestResult<>(409,"用户名或邮箱已注册",null));
+            ResponseUtils.responseJson(response,new RequestResult<>(409,"Username or email is exits",null));
             return null;
         }
         session.setAttribute("username",user.getUsername());
@@ -139,7 +151,7 @@ public class UserControl {
             return new ModelAndView("user/register/verify");
         }
         if(token==null){
-            return new ModelAndView("user/register/verify","username",username);
+            return new ModelAndView("user/register/verify","message","Your token is null");
         }
         if(username==null){
             return new ModelAndView("user/register");
@@ -155,7 +167,43 @@ public class UserControl {
 
         session.removeAttribute("user");
         session.removeAttribute("username");
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("user/register/verifysuccess");
+    }
+
+    @GetMapping("/register/verify/resend")
+    public ModelAndView registerVerifyResend(String username,
+                                             HttpServletResponse response,
+                                             HttpSession session,
+                                             HttpServletRequest request) throws IOException {
+        if (username == null) {
+            response.setStatus(400);
+            ResponseUtils.responseJson(response, new RequestResult<>(400, "Username cannot is null", null));
+            return null;
+        }
+        User user = userService.getUserByUsername(username);
+        if (user == null) {
+            response.setStatus(404);
+            ResponseUtils.responseJson(response, new RequestResult<>(404, "Username is not exist", null));
+            return null;
+        }
+        if (user.getStatus() == UserStatusEnum.ACTIVE) {
+            response.setStatus(409);
+            ResponseUtils.responseJson(response, new RequestResult<>(409, "User is activated", null));
+            return null;
+        }
+        String token = userService.resendVerifyToken(user);
+        if (token == null) {
+            response.setStatus(500);
+            ResponseUtils.responseJson(response, new RequestResult<>(500, "Send email failed", null));
+            return null;
+        }
+
+        response.setStatus(201);
+
+        session.removeAttribute("user");
+        session.removeAttribute("message");
+        ResponseUtils.responseJson(response, new RequestResult<>(201, "Resend verify token success", null));
+        return null;
     }
 
     /**
