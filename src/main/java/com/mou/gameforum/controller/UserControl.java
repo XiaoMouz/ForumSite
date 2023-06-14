@@ -358,7 +358,9 @@ public class UserControl {
                                     HttpServletRequest request
                                     ) {
         User user = (User) session.getAttribute("user");
-
+        user = userService.getUserById(user.getId());
+        session.removeAttribute("user");
+        session.setAttribute("user", user);
         ModelAndView mav = new ModelAndView("user/profile");
         if (Objects.equals(user.getId(), id)) {
             mav.addObject("self", true);
@@ -382,8 +384,7 @@ public class UserControl {
     public String updateUser(@PathVariable Integer id,
                              @RequestBody User user,
                              HttpServletResponse response,
-                             HttpSession session,
-                             HttpServletRequest request) throws IOException {
+                             HttpSession session) throws IOException {
         User self = (User) session.getAttribute("user");
         if (self == null) {
             response.setStatus(401);
@@ -400,6 +401,7 @@ public class UserControl {
             ResponseUtils.responseJson(response, new RequestResult<>(400, "User is null", null));
             return null;
         }
+        user.setId(self.getId());
         if (user.getUsername() != null) {
             if (user.getUsername().length() < 3 || user.getUsername().length() > 16 || !user.getUsername().matches("[a-zA-Z0-9 ]*")) {
                 response.setStatus(400);
@@ -427,7 +429,7 @@ public class UserControl {
                 return null;
             }
             User userByEmail = userService.getUserByUsername(user.getEmail());
-            if (userByEmail != null) {
+            if (userByEmail != null&& !Objects.equals(userByEmail.getId(), id)) {
                 response.setStatus(400);
                 ResponseUtils.responseJson(response, new RequestResult<>(400, "Email already exist", null));
                 return null;
@@ -442,13 +444,13 @@ public class UserControl {
         }
 
         userService.updateUserInfo(user);
+        ResponseUtils.responseJson(response, new RequestResult<>(200, "Update user info success", null));
         return null;
     }
 
     @PutMapping("/user/{id}/uploadAvatar")
     public String uploadAvatar(@PathVariable Integer id,
                                @RequestParam("avatarFile") MultipartFile avatar,
-                               @RequestBody User user,
                                HttpServletResponse response,
                                HttpSession session,
                                HttpServletRequest request) throws IOException {

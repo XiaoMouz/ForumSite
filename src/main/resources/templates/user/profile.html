@@ -57,49 +57,16 @@
     </style>
 {% endblock %}
 {% block main %}
-<script>
-    $('#profile').change(function (){
-        document.getElementById("submitBtn").classList.remove("hide");
-    });
-    $(function (){
-        $('#profile').submit(function (e){
-            var newpwd = null;
-            if($('#newPassword').val()!=$('#cfpassword').val()){
-                $('#error').text('两次输入的密码不一致');
-                return;
-            }
-            if($('#newPassword').val()!=''){
-                newpwd = md5($('#newPassword').val());
-            }
-
-            var data={
-                username: $('#username').val(),
-                email:$('#email').val(),
-                avatarLink:$('#avatar-link').val(),
-                newPassword: newpwd
-            };
-            $.ajax({
-                type: 'POST',
-                url: '#',
-                data: JSON.stringify(data),
-                success: function (resp) {
-                    if (resp.error) {
-                        $('#error').text(resp.error);
-                    } else {
-                        location.assign('#');
-                    }
-                },
-                contentType: 'application/json',
-                dataType: 'json'
-            })
-        })
-    })
-</script>
 {% if message != null %}
-<div class="alert alert-danger" role="alert">
+<div class="alert alert-danger" role="alert" id="error">
     {{message}}
 </div>
+{% else %}
+<div class="alert alert-danger visually-hidden" role="alert" id="error">
+</div>
 {% endif %}
+<div class="alert alert-info visually-hidden" role="alert" id="info">
+</div>
 <section class="section profile">
     <div class="row">
         <div class="col-xl-4">
@@ -179,10 +146,12 @@
                     <div class="tab-content pt-2">
                         {% if self %}
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                {% if user.getAbout() != null%}
                                 <h5 class="card-title">About</h5>
                                 <p class="small fst-italic">
-                                    Not Available
+                                    {{user.getAbout()}}
                                 </p>
+                                {% endif %}
 
                                 <h5 class="card-title">Details</h5>
 
@@ -283,7 +252,7 @@
                         {% if self %}
                         <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                             <!-- Profile Edit Form -->
-                            <form>
+                            <form id="profileEditForm" >
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-3 col-form-label">Avatar</label>
                                     <div class="col-md-8 col-lg-9">
@@ -358,11 +327,46 @@
 <!--                                </div>-->
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button id="profileEditSubmit" type="submit" class="btn btn-primary">
                                         Save Changes
                                     </button>
                                 </div>
+                                </div>
                             </form>
+                            <script>
+                                $(function (){
+                                    $('#profileEditForm').submit(function (e){
+                                        $('#info').addClass('visually-hidden')
+                                        $('#error').addClass('visually-hidden')
+                                        $('#info').text('')
+                                        $('#error').text('')
+                                        $('#profileEditForm').addClass('disable')
+                                        e.preventDefault();
+                                        var data={
+                                            nickname: $('#nickname').val(),
+                                            about: $('#about').val(),
+                                            email: $('#email').val(),
+                                        };
+                                        $.ajax({
+                                            type: 'PUT',
+                                            url: '#',
+                                            data: JSON.stringify(data),
+                                            success: function (resp) {
+                                                $('#info').removeClass('visually-hidden')
+                                                $('#info').text(resp.msg)
+                                                $('#profileEditForm').removeClass('disable')
+                                            },
+                                            error: function (xhr){
+                                                $('#error').removeClass('visually-hidden')
+                                                $('#error').text(xhr.responseJSON.msg)
+                                                $('#profileEditForm').removeClass('disable')
+                                            },
+                                            contentType: 'application/json',
+                                            dataType: 'json'
+                                        })
+                                    })
+                                })
+                            </script>
                             <!-- End Profile Edit Form -->
                         </div>
 
