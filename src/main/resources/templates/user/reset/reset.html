@@ -21,7 +21,7 @@
                     if (resp.error) {
                         $('#error').text(resp.error);
                     } else {
-                        location.assign('./verify');
+                        location.assign('./reset/verify');
                     }
                 },
                 contentType: 'application/json',
@@ -36,8 +36,8 @@
         <p id="error" class="text-danger"></p>
     </div>
     <div class="w-50 form-floating mb-3">
-        <input type="username" class="form-control" id="username" placeholder="Username or password">
-        <label for="username">Username or password</label>
+        <input type="username" class="form-control" id="username" placeholder="Username or Email">
+        <label for="username">Username or Email</label>
     </div>
     <button type="submit" class="btn btn-outline-primary">Next</button>
 </form>
