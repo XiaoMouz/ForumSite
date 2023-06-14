@@ -7,21 +7,26 @@
             $('#regForm button').addClass('disabled');
             e.preventDefault()
             if ($('#username').val() == '' || $('#email').val() == '' || $('#password').val() == '') {
-                $('#error').text('请填写完整信息');
+                $('#error').removeClass('visually-hidden')
+                $('#error').text('Please entry all information');
                 return;
             };
             if (!/^[a-zA-Z0-9]+$/.test($('#username').val())) {
-                $('#error').text('用户名只能包含字母和数字');
+                $('#error').removeClass('visually-hidden')
+                $('#error').text('Username should only contain letters and numbers');
                 return;
             };
             if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test($('#email').val())) {
-                $('#error').text('邮箱格式不正确');
+                $('#error').removeClass('visually-hidden')
+                $('#error').text('Email format error');
                 return;
             };
             if ($('#password').val().length < 6 || $('#password').val().length > 16) {
-                $('#error').text('密码长度应为6-16位');
+                $('#error').removeClass('visually-hidden')
+                $('#error').text('Password length should be 6-16');
                 return;
             };
+            $('#error').addClass('visually-hidden')
             $('#error').text('');
             let data = {
                 username: $('#username').val(),
@@ -37,6 +42,7 @@
                     location.assign('/register/verify');
                 },
                 error: function (xhr){
+                    $('#error').removeClass('visually-hidden')
                     console.log(xhr);
                     if (xhr.status === 301 || xhr.status === 302) {
                         // 如果是跳转状态码，解析 Location   头并进行跳转
@@ -69,7 +75,7 @@
 
 
 <h1 class="h3 mb-3 fw-normal">Register</h1>
-    <div id="error" class="w-25 alert alert-danger visually-hidden" role="alert">
+    <div id="error" class="w-50 alert alert-danger visually-hidden" role="alert">
     </div>
     <div class="w-50 form-floating mb-3">
         <input type="username" class="form-control" id="username" placeholder="Username">

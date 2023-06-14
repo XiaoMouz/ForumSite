@@ -2,8 +2,14 @@
 
 {% block main %}
 <form id="verifyForm" method="get" action="/register/verify">
-    <div class="w-25 alert alert-danger visually-hidden" role="alert">
-        <p id="error" class="text-danger">{{message}}</p>
+    <h1 class="h3 mb-3 fw-normal">Verify account</h1>
+    {%% if message != null}
+    <div class="w-50 alert alert-warning" role="alert">
+        <p id="warning" class="text-danger">{{message}}</p>
+    </div>
+    {% endif %}
+    <div class="w-50 alert alert-danger visually-hidden" role="alert">
+        <p id="error" class="text-danger"></p>
     </div>
     {% if username!=null %}
     <div class="w-50 form-floating mb-3">
@@ -28,6 +34,7 @@
     // when resend link click after the text set timer 60s
     $(function () {
         $("#resend").click(function (e) {
+            $('#error').addClass('visually-hidden')
             $.ajax({
                 type: "GET",
                 url: "/register/verify/resend",
@@ -36,6 +43,7 @@
                 },
                 dataType: "json",
                 success: function (response) {
+                    $('#error').removeClass('visually-hidden')
                     if (response.code === "201"||response.code === "200") {
                         $("#error").text(response.msg);
                     } else {
@@ -43,6 +51,7 @@
                     }
                 },
                 error: function (xhr) {
+                    $('#error').removeClass('visually-hidden')
                     console.log(xhr);
                     if (xhr.status === 301 || xhr.status === 302) {
                         // 如果是跳转状态码，解析 Location 头并进行跳转

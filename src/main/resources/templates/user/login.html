@@ -7,9 +7,11 @@
             $('#signinForm button').addClass('disabled');
             e.preventDefault();
             if ($('#username').val() == '' || $('#password').val() == '') {
+                $('#error').removeClass('visually-hidden')
                 $('#error').text('Please fill information');
                 return;
             };
+            $('#error').addClass('visually-hidden')
             $('#error').text('');
             var data = {
                 username: $('#username').val(),
@@ -23,6 +25,7 @@
                     location.assign('./');
                 },
                 error: function (xhr) {
+                    $('#error').removeClass('visually-hidden')
                     console.log(xhr);
                     if (xhr.status === 301 || xhr.status === 302) {
                         // 如果是跳转状态码，解析 Location 头并进行跳转
@@ -54,7 +57,7 @@
 
 <form id="signinForm">
     <h1 class="h3 mb-3 fw-normal">Login</h1>
-    <div id="error" class="w-25 alert alert-danger visually-hidden" role="alert">
+    <div id="error" class="w-50 alert alert-danger visually-hidden" role="alert">
     </div>
     <div class="w-50 form-floating mb-3">
         <input type="username" class="form-control" id="username" placeholder="Username or Email">
