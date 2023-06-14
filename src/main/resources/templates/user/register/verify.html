@@ -2,7 +2,7 @@
 
 {% block main %}
 <form id="verifyForm" method="get" action="/register/verify">
-    <div class="form-group">
+    <div class="w-25 alert alert-danger visually-hidden" role="alert">
         <p id="error" class="text-danger">{{message}}</p>
     </div>
     {% if username!=null %}
