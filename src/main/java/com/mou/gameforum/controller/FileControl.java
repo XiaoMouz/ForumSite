@@ -1,6 +1,7 @@
 package com.mou.gameforum.controller;
 
 
+import com.mou.gameforum.entity.vo.RequestResult;
 import com.mou.gameforum.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -34,12 +35,13 @@ public class FileControl {
     @GetMapping("/files")
     public String listUploadedFiles(Model model) throws IOException {
 
+
         model.addAttribute("files", storageService.loadAll().map(
                         path -> MvcUriComponentsBuilder.fromMethodName(FileControl.class,
-                                "serveFile", path.getFileName().toString()).build().toUri().toString())
-                .collect(Collectors.toList()));
+                                "serveFile", path.getFileName().toString()).build().toUri().toString()
+                ).collect(Collectors.toList()));
 
-        return "uploadForm";
+        return "file/list";
     }
 
     @GetMapping("/files/{filename:.+}")
@@ -52,13 +54,10 @@ public class FileControl {
     }
 
     @PostMapping("/files/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
 
         storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        return "redirect:/files";
+        return new RequestResult<>(200, "Upload success", null).toString();
     }
 }

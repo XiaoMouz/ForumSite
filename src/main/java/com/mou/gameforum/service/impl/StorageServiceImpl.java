@@ -42,6 +42,19 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
+    public void storeToPath(MultipartFile file, String path) {
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
+            }
+            Path path1 = Paths.get(path);
+            Files.copy(file.getInputStream(), path1.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+        } catch (IOException e) {
+            throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
+        }
+    }
+
+    @Override
     public Stream<Path> loadAll() {
         try {
             return Files.walk(this.rootLocation, 1)
@@ -82,6 +95,9 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public void init() {
+        if(Files.exists(rootLocation)) {
+            return;
+        }
         try {
             Files.createDirectory(rootLocation);
         } catch (IOException e) {
