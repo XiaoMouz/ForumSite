@@ -5,32 +5,56 @@
     $(function () {
         $('#resetForm').submit(function (e) {
             e.preventDefault();
-            if ($('#code').val() == '' || $('#password').val() == '' || $('#cpassword').val() == '') {
+            if ($('#token').val() == '' || $('#password').val() == '' || $('#cpassword').val() == '') {
+                $('#error').removeClass("visually-hidden")
                 $('#error').text('Please entry all information')
                 return;
-            };
+            }
+            if($('#username').val() == ''){
+                $('#error').removeClass("visually-hidden")
+                $('#error').text('Username cannot be empty')
+                return;
+            }
             if($('#password').val() != $('#cpassword').val()){
+                $('#error').removeClass("visually-hidden")
                 $('#error').text('Password not match')
                 return;
             }
             if ($('#password').val().length < 6 || $('#password').val().length > 16) {
+                $('#error').removeClass("visually-hidden")
                 $('#error').text('Password length should be 6-16');
                 return;
             };
+            $('#error').addClass("visually-hidden")
             $('#error').text('');
             var data = {
-                trackID: $('#code').val(),
-                password: md5($('#password').val())
+                username: $('#username').val(),
+                token: $('#token').val(),
+                password: $('#password').val()
             };
             $.ajax({
                 type: 'POST',
                 url: '#',
                 data: JSON.stringify(data),
                 success: function (resp) {
-                    if (resp.error) {
-                        $('#error').text(resp.error);
-                    } else {
-                        location.assign('./login');
+                    $('#error').removeClass("visually-hidden")
+                    location.assign('./login');
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (xhr.status === 301 || xhr.status === 302) {
+                        // 如果是跳转状态码，解析 Location 头并进行跳转
+                        const locationHeader = xhr.getResponseHeader('Location');
+                        if (locationHeader) {
+                            console.log('Jumping to:', locationHeader);
+                            location.assign(locationHeader);
+                            return;
+                        }
+                    }
+                    let resp = xhr.responseJSON
+                    console.log(resp)
+                    switch (resp.code) {
+                        default: $('#error').removeClass("visually-hidden").text(resp.msg); break;
                     }
                 },
                 contentType: 'application/json',
@@ -41,20 +65,39 @@
 </script>
 
 <form id="resetForm">
-    <div class="form-group">
-        <p id="error" class="text-danger"></p>
+    {% if message != null%}
+        <div class="w-25 alert alert-warning" role="alert">
+            {{message}}
+        </div>
+    {% endif %}
+    <div class="w-25 alert alert-danger visually-hidden" id="error" role="alert">
+
     </div>
     <div class="form-group">
-        <label>Verify code</label>
-        <input id="code" class="form-control" placeholder="Verify code">
+        {% if username == null%}
+        <div class="mb-3 form-floating w-50">
+            <input id="username" class="form-control" placeholder="Username" value="{{username}}">
+            <label for="username">Username</label>
+        </div>
+
+        {% else %}
+        <div class="alert alert-primary" role="alert">
+            You reset username is {{username}}
+            <input id="username" value="{{username}}" class="visually-hidden">
+        </div>
+        {% endif %}
+        <div class="mb-3 form-floating w-50">
+            <input id="token" class="form-control" placeholder="Verify code" value="{{token}}">
+            <label for="token">Verify code</label>
+        </div>
     </div>
-    <div class="form-group">
-        <label>New Password</label>
+    <div class="mb-3 form-floating w-50">
         <input id="password" type="password" class="form-control" placeholder="New Password">
+        <label for="password">New Password</label>
     </div>
-    <div class="form-group">
-        <label>Confirm Password</label>
+    <div class="mb-3 form-floating w-50">
         <input id="cpassword" type="password" class="form-control" placeholder="Confirm Password">
+        <label for="cpassword">Confirm Password</label>
     </div>
     <button type="submit" class="btn btn-outline-primary">Done</button>
 </form>

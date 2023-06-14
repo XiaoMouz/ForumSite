@@ -6,6 +6,7 @@ import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
 import com.mou.gameforum.entity.dto.UserRegisterDto;
+import com.mou.gameforum.entity.dto.UserResetDto;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -93,6 +94,9 @@ public interface UserMapper extends MPJBaseMapper<User> {
     @Select("select * from users where username = #{username} and token = #{token}")
     User getUserByToken(String username,String token);
 
+    @Update("update users set password = #{password} where username = #{username} and token = #{token}")
+    int updateUserPassword(UserResetDto userResetDto);
+
     /**
      * 重写后的 insert ，屏蔽了 id
      * @param entity 用户
@@ -101,5 +105,4 @@ public interface UserMapper extends MPJBaseMapper<User> {
     @Override
     @Insert("insert into users(username, nickname , password, email, token, loginTime, loginIp, registerIp, registerTime) values(#{username}, #{nickname}, #{password}, #{email}, #{token}, #{loginTime}, #{loginIp}, #{registerIp}, #{registerTime})")
     int insert(User entity);
-
 }

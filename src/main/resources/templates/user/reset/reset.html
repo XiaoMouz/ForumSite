@@ -12,14 +12,15 @@
             };
             $('#error').text('');
             var data = {
-                input: $('#username').val(),
+                username: $('#username').val(),
             };
             $.ajax({
                 type: 'POST',
                 url: '#',
                 data: JSON.stringify(data),
                 success: function (resp) {
-                        location.assign('./reset/verify');
+                        $('#error').addClass("visually-hidden")
+                        location.assign('/reset/verify');
                 },
                 error: function (xhr){
                     if (xhr.status === 301 || xhr.status === 302) {
@@ -33,12 +34,12 @@
                     }
                     $('#submitBtn').removeClass('disabled');
                     if (xhr.status === 200 || xhr.status === 201) {
-                        location.assign('./reset/verify');
+                        location.assign('/reset/verify?username=' + $('#username').val());
                     }
                     let resp = xhr.responseJSON
                     console.log(resp)
                     switch (resp.code) {
-                        default: $('#error').text(resp.msg); break;
+                        default: $('#error').removeClass("visually-hidden").text(resp.msg); break;
                     }
                 },
                 contentType: 'application/json',
@@ -49,8 +50,8 @@
 </script>
 
 <form id="resetForm">
-    <div class="form-group">
-        <p id="error" class="text-danger"></p>
+    <div id="error" class="w-50 alert alert-danger visually-hidden" role="alert">
+
     </div>
     <div class="w-50 form-floating mb-3">
         <input type="username" class="form-control" id="username" placeholder="Username or Email">

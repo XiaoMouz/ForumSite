@@ -4,6 +4,7 @@ import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
 import com.mou.gameforum.entity.dto.UserRegisterDto;
+import com.mou.gameforum.entity.dto.UserResetDto;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
 import com.mou.gameforum.entity.vo.RequestResult;
 import com.mou.gameforum.service.user.UserService;
@@ -217,10 +218,16 @@ public class UserControl {
         return new ModelAndView("user/reset/reset");
     }
     @PostMapping("/reset")
-    public String reset(@RequestBody String username,
+    public String reset(@RequestBody UserResetDto userResetDto,
                               HttpServletResponse response,
                               HttpSession session,
                               HttpServletRequest request) throws IOException {
+        if(userResetDto==null){
+            response.setStatus(400);
+            ResponseUtils.responseJson(response,new RequestResult<>(400,"Username not illegal",null));
+            return null;
+        }
+        String username = userResetDto.getUsername();
         if(username==null||username.length()<3||username.length()>16||!username.matches("[a-zA-Z0-9 ]*")){
             response.setStatus(400);
             ResponseUtils.responseJson(response,new RequestResult<>(400,"Username not illegal",null));
@@ -253,13 +260,18 @@ public class UserControl {
                                     HttpSession session,
                                     HttpServletRequest request){
         if(username==null&&token==null){
+            session.removeAttribute("username");
+            session.removeAttribute("token");
             return new ModelAndView("user/reset/verify");
         }
         if(token==null){
-            return new ModelAndView("user/reset/verify","message","Your token is null");
+            session.setAttribute("username",username);
+            return new ModelAndView("user/reset/verify","message","You reset token is null");
         }
         if(username==null){
-            return new ModelAndView("user/reset");
+            session.removeAttribute("username");
+            session.removeAttribute("token");
+            return new ModelAndView("redirect:/reset");
         }
         User user = userService.selectVerifyResetUser(username,token);
 
@@ -270,9 +282,44 @@ public class UserControl {
             return mav;
         }
 
-        session.removeAttribute("user");
-        session.removeAttribute("username");
+        session.setAttribute("username",user.getUsername());
+        session.setAttribute("token",user.getToken());
         return new ModelAndView("user/reset/verify");
+    }
+
+    @PostMapping("/reset/verify")
+    public String resetVerify(@RequestBody UserResetDto userResetDto,
+                              HttpServletResponse response,
+                              HttpSession session,
+                              HttpServletRequest request) throws IOException {
+        if(userResetDto==null){
+            response.setStatus(400);
+            ResponseUtils.responseJson(response,new RequestResult<>(400,"User reset dto is null",null));
+            return null;
+        }
+        if(userResetDto.getPassword()==null||userResetDto.getPassword().length()<6||userResetDto.getPassword().length()>16||!userResetDto.getPassword().matches("[a-zA-Z0-9 ]*")){
+            response.setStatus(400);
+            ResponseUtils.responseJson(response,new RequestResult<>(400,"Password not illegal",null));
+            return null;
+        }
+        if(userResetDto.getToken()==null||userResetDto.getToken().length()>7){
+            response.setStatus(400);
+            ResponseUtils.responseJson(response,new RequestResult<>(400,"Token not illegal",null));
+            return null;
+        }
+
+        User user = userService.resetPassword(userResetDto);
+
+        if(user==null){
+            response.setStatus(500);
+            ResponseUtils.responseJson(response,new RequestResult<>(500,"Reset password failed",null));
+            return null;
+        }
+        session.removeAttribute("username");
+        session.removeAttribute("token");
+        response.setStatus(201);
+        ResponseUtils.responseJson(response,new RequestResult<>(201,"Reset password success",null));
+        return null;
     }
 
     /**

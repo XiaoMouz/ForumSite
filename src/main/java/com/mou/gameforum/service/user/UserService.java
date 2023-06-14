@@ -4,6 +4,7 @@ import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
 import com.mou.gameforum.entity.dto.UserRegisterDto;
+import com.mou.gameforum.entity.dto.UserResetDto;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -53,6 +54,13 @@ public interface UserService {
      * @return 返回用户数据
      */
     User selectVerifyResetUser(String username,String token);
+
+    /**
+     * 重置用户密码
+     * @param userResetDto 重置密码 dto
+     * @return void
+     */
+    User resetPassword(UserResetDto userResetDto);
 
     /**
      * 根据 id 获取用户

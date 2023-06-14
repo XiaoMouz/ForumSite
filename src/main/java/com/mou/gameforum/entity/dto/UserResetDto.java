@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "用户重置密码实体")
 public class UserResetDto {
+    @Schema(description = "用户名")
+    String username;
     @Schema(description = "重置密码的 token")
     String token;
     @Schema(description = "密码")

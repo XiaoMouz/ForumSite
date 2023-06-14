@@ -27,7 +27,8 @@ public class GlobalExceptionAdviceControl {
      */
     @ExceptionHandler(Exception.class)
     @RequestMapping("/500")
-    public ModelAndView handleException(Exception error) {
+    public ModelAndView handleException(Exception error,HttpServletResponse response) {
+        response.setStatus(500);
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("error/500");

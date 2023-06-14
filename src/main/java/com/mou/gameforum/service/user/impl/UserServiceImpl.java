@@ -5,6 +5,7 @@ import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
 import com.mou.gameforum.entity.dto.UserRegisterDto;
+import com.mou.gameforum.entity.dto.UserResetDto;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
 import com.mou.gameforum.entity.vo.EmailTemplate;
 import com.mou.gameforum.mapper.levels.LevelsMapper;
@@ -136,6 +137,21 @@ public class UserServiceImpl implements UserService {
                 )
         )).start();
         return user.getToken();
+    }
+
+    @Override
+    public User resetPassword(UserResetDto userResetDto) {
+        userResetDto.setPassword(StringUtils.getMD5Result(userResetDto.getPassword()));
+        int effect = userMapper.updateUserPassword(userResetDto);
+        if(effect == 1){
+            User user = userMapper.selectUserByUsername(userResetDto.getUsername());
+            userMapper.cleanUserToken(user);
+            return user;
+        }else if(effect > 1){
+            // 回滚
+            throw new RuntimeException("更新用户密码时出现多个用户被更新,用户名:"+ userResetDto.getUsername());
+        }
+        return null;
     }
 
     @Override
