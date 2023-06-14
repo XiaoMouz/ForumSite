@@ -27,8 +27,40 @@
 <script>
     // when resend link click after the text set timer 60s
     $(function () {
-        $("#resend").click(function () {
-            sendRequest();
+        $("#resend").click(function (e) {
+            $.ajax({
+                type: "GET",
+                url: "/register/verify/resend",
+                data: {
+                    username: $("#username").val()
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.code === "201"||response.code === "200") {
+                        $("#error").text(response.msg);
+                    } else {
+                        $("#error").text(response.msg);
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (xhr.status === 301 || xhr.status === 302) {
+                        // 如果是跳转状态码，解析 Location 头并进行跳转
+                        const locationHeader = xhr.getResponseHeader('Location');
+                        if (locationHeader) {
+                            console.log('Jumping to:', locationHeader);
+                            location.assign(locationHeader);
+                            return;
+                        }
+                    }
+                    let resp = xhr.responseJSON
+                    console.log(resp)
+                    switch (resp.code) {
+                        default: $('#error').text(resp.msg); break;
+                    }
+                },
+                contentType: 'application/json'
+            });
             setTimer();
         });
     })
@@ -48,29 +80,6 @@
                 resend.innerHTML = "Resend";
             }
         }, 1000);
-    }
-
-    // when resend link click send request to server
-    // todo: bug
-    function sendRequest() {
-        document.getElementById("resend").addEventListener("click", function (event) {
-            event.preventDefault();
-            var username = document.getElementById("username").value;
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/register/verify/resend?username=" + username, true);
-            xhr.onreadystatechange = function () {
-                if (xhr.status == 200) {
-                    var response = xhr.responseJSON;
-                    if (response.code == "201"||response.code == "200") {
-                        $("error").text(response.msg);
-                        setTimer();
-                    } else {
-                        $("error").text(response.msg);
-                    }
-                }
-            }
-            xhr.send();
-    });
     }
 </script>
 {% endblock %}
