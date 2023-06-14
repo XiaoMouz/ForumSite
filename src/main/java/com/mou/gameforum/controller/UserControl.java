@@ -206,6 +206,75 @@ public class UserControl {
         return null;
     }
 
+    @GetMapping("/reset")
+    public ModelAndView reset(HttpServletResponse response,
+                              HttpSession session,
+                              HttpServletRequest request){
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            return new ModelAndView("redirect:/", "user", user);
+        }
+        return new ModelAndView("user/reset/reset");
+    }
+    @PostMapping("/reset")
+    public String reset(@RequestBody String username,
+                              HttpServletResponse response,
+                              HttpSession session,
+                              HttpServletRequest request) throws IOException {
+        if(username==null||username.length()<3||username.length()>16||!username.matches("[a-zA-Z0-9 ]*")){
+            response.setStatus(400);
+            ResponseUtils.responseJson(response,new RequestResult<>(400,"Username not illegal",null));
+            return null;
+        }
+        User user = userService.getUserByUsername(username);
+        if(user==null){
+            response.setStatus(404);
+            ResponseUtils.responseJson(response,new RequestResult<>(404,"Username not exist",null));
+            return null;
+        }
+
+        String token = userService.resetUser(user);
+
+        if(token==null){
+            response.setStatus(500);
+            ResponseUtils.responseJson(response,new RequestResult<>(500,"Send email failed",null));
+            return null;
+        }
+
+        response.setStatus(201);
+        ResponseUtils.responseJson(response,new RequestResult<>(201,"Reset password success",null));
+        return null;
+    }
+
+    @GetMapping("/reset/verify")
+    public ModelAndView resetVerify(String username,
+                                    String token,
+                                    HttpServletResponse response,
+                                    HttpSession session,
+                                    HttpServletRequest request){
+        if(username==null&&token==null){
+            return new ModelAndView("user/reset/verify");
+        }
+        if(token==null){
+            return new ModelAndView("user/reset/verify","message","Your token is null");
+        }
+        if(username==null){
+            return new ModelAndView("user/reset");
+        }
+        User user = userService.selectVerifyResetUser(username,token);
+
+        if(user==null){
+            ModelAndView mav = new ModelAndView("user/reset/verify");
+            mav.addObject("message",
+                    "Your token is wrong or username not exist");
+            return mav;
+        }
+
+        session.removeAttribute("user");
+        session.removeAttribute("username");
+        return new ModelAndView("user/reset/verify");
+    }
+
     /**
      * 用户登出
      * @param response response

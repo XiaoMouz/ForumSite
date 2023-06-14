@@ -33,6 +33,28 @@ public interface UserService {
     User verifyRegisterUser(String username,String token);
 
     /**
+     * 重新验证用户邮箱
+     * @param user 用户
+     * @return 返回验证 token
+     */
+    String resendVerifyToken(User user);
+
+    /**
+     * 重置用户密码
+     * @param user 用户
+     * @return 返回重置密码的 token
+     */
+    String resetUser(User user);
+
+    /**
+     * 验证重置密码的用户
+     * @param username 用户名
+     * @param token 重置密码的 token
+     * @return 返回用户数据
+     */
+    User selectVerifyResetUser(String username,String token);
+
+    /**
      * 根据 id 获取用户
      * @param id 用户 id
      * @return 用户
@@ -46,5 +68,5 @@ public interface UserService {
      */
     User getUserByUsername(String username);
 
-    String resendVerifyToken(User user);
+
 }

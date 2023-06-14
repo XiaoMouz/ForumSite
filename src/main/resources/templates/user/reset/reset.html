@@ -4,6 +4,7 @@
 <script>
     $(function () {
         $('#resetForm').submit(function (e) {
+            $('#submitBtn').addClass('disabled');
             e.preventDefault();
             if ($('#username').val() == '') {
                 $('#error').text('Please entry all information')
@@ -18,10 +19,26 @@
                 url: '#',
                 data: JSON.stringify(data),
                 success: function (resp) {
-                    if (resp.error) {
-                        $('#error').text(resp.error);
-                    } else {
                         location.assign('./reset/verify');
+                },
+                error: function (xhr){
+                    if (xhr.status === 301 || xhr.status === 302) {
+                        // 如果是跳转状态码，解析 Location 头并进行跳转
+                        const locationHeader = xhr.getResponseHeader('Location');
+                        if (locationHeader) {
+                            console.log('Jumping to:', locationHeader);
+                            location.assign(locationHeader);
+                            return;
+                        }
+                    }
+                    $('#submitBtn').removeClass('disabled');
+                    if (xhr.status === 200 || xhr.status === 201) {
+                        location.assign('./reset/verify');
+                    }
+                    let resp = xhr.responseJSON
+                    console.log(resp)
+                    switch (resp.code) {
+                        default: $('#error').text(resp.msg); break;
                     }
                 },
                 contentType: 'application/json',
@@ -39,6 +56,6 @@
         <input type="username" class="form-control" id="username" placeholder="Username or Email">
         <label for="username">Username or Email</label>
     </div>
-    <button type="submit" class="btn btn-outline-primary">Next</button>
+    <button id="submitBtn" type="submit" class="btn btn-outline-primary">Next</button>
 </form>
 {% endblock %}

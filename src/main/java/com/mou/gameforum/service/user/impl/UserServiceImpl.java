@@ -105,6 +105,45 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String resendVerifyToken(User user) {
+        user.setToken(StringUtils.getUUID().substring(0,6));
+        userMapper.updateUserToken(user,user.getToken());
+        new Thread(() -> emailService.sendEmail(
+                user.getEmail(),
+                new EmailTemplate(
+                        "Register verify",
+                        "Your ("+ user.getNickname() +") register verify code is "+user.getToken()+", you can click button to verify your account",
+                        "Verify Account",
+                        "http://"+ domain+"/register/verify?username="+user.getUsername()+"&token="+user.getToken(),
+                        "We didn't have verify time limit, but we suggest you verify your account as soon as possible"
+                )
+        )).start();
+        return user.getToken();
+    }
+
+    @Override
+    public String resetUser(User user){
+        user.setToken(StringUtils.getUUID().substring(0,6));
+        userMapper.updateUserToken(user,user.getToken());
+        new Thread(() -> emailService.sendEmail(
+                user.getEmail(),
+                new EmailTemplate(
+                        "Reset password",
+                        "Your ("+ user.getNickname() +") reset password code is "+user.getToken()+", you can click button to reset your password",
+                        "Reset Password",
+                        "http://"+ domain+"/reset/verify?username="+user.getUsername()+"&token="+user.getToken(),
+                        "We didn't have verify time limit, but we suggest you reset your password as soon as possible"
+                )
+        )).start();
+        return user.getToken();
+    }
+
+    @Override
+    public User selectVerifyResetUser(String username, String token) {
+        return userMapper.getUserByToken(username, token);
+    }
+
+    @Override
     public User getUserById(Integer id) {
         User user = userMapper.selectById(id);
         if(user!=null){
@@ -126,23 +165,6 @@ public class UserServiceImpl implements UserService {
             user = setUserLevels(user);
         }
         return user;
-    }
-
-    @Override
-    public String resendVerifyToken(User user) {
-        user.setToken(StringUtils.getUUID().substring(0,6));
-        userMapper.updateUserToken(user,user.getToken());
-        new Thread(() -> emailService.sendEmail(
-                user.getEmail(),
-                new EmailTemplate(
-                        "Register verify",
-                        "Your register verify code is "+user.getToken()+", you can click button to verify your account",
-                        "Verify Account",
-                        "http://"+ domain+"/register/verify?username="+user.getUsername()+"&token="+user.getToken(),
-                        "We didn't have verify time limit, but we suggest you verify your account as soon as possible"
-                )
-        )).start();
-        return user.getToken();
     }
 
     private User setUserLevels(User user) {

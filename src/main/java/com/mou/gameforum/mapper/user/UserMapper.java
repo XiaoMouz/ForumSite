@@ -90,6 +90,9 @@ public interface UserMapper extends MPJBaseMapper<User> {
     @Update("update users set token = #{token} where id = #{user.id}")
     void updateUserToken(User user,String token);
 
+    @Select("select * from users where username = #{username} and token = #{token}")
+    User getUserByToken(String username,String token);
+
     /**
      * 重写后的 insert ，屏蔽了 id
      * @param entity 用户
