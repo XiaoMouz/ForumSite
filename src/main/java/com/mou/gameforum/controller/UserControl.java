@@ -7,6 +7,7 @@ import com.mou.gameforum.entity.dto.UserRegisterDto;
 import com.mou.gameforum.entity.dto.UserResetDto;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
 import com.mou.gameforum.entity.vo.RequestResult;
+import com.mou.gameforum.mapper.user.UserMapper;
 import com.mou.gameforum.service.user.UserService;
 import com.mou.gameforum.utils.ResponseUtils;
 import jakarta.annotation.Resource;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import net.sf.jsqlparser.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -26,6 +28,9 @@ import java.util.Objects;
 public class UserControl {
     @Resource
     UserService userService;
+
+    @Resource
+    UserMapper userMapper;
 
     /**
      * 用户登录页面
@@ -371,5 +376,115 @@ public class UserControl {
         mav.addObject("guest", user);
         mav.addObject("self", false);
         return mav;
+    }
+
+    @PutMapping("/user/{id}")
+    public String updateUser(@PathVariable Integer id,
+                             @RequestBody User user,
+                             HttpServletResponse response,
+                             HttpSession session,
+                             HttpServletRequest request) throws IOException {
+        User self = (User) session.getAttribute("user");
+        if (self == null) {
+            response.setStatus(401);
+            ResponseUtils.responseJson(response, new RequestResult<>(401, "Unauthorized", null));
+            return null;
+        }
+        if (!Objects.equals(self.getId(), id)) {
+            response.setStatus(403);
+            ResponseUtils.responseJson(response, new RequestResult<>(403, "Forbidden", null));
+            return null;
+        }
+        if (user == null) {
+            response.setStatus(400);
+            ResponseUtils.responseJson(response, new RequestResult<>(400, "User is null", null));
+            return null;
+        }
+        if (user.getUsername() != null) {
+            if (user.getUsername().length() < 3 || user.getUsername().length() > 16 || !user.getUsername().matches("[a-zA-Z0-9 ]*")) {
+                response.setStatus(400);
+                ResponseUtils.responseJson(response, new RequestResult<>(400, "Username not illegal", null));
+                return null;
+            }
+            User userByUsername = userService.getUserByUsername(user.getUsername());
+            if (userByUsername != null) {
+                response.setStatus(400);
+                ResponseUtils.responseJson(response, new RequestResult<>(400, "Username already exist", null));
+                return null;
+            }
+        }
+        if(user.getNickname()!= null){
+            if (user.getNickname().length() < 3 || user.getNickname().length() > 16 || !user.getNickname().matches("[a-zA-Z0-9 ]*")) {
+                response.setStatus(400);
+                ResponseUtils.responseJson(response, new RequestResult<>(400, "Nickname not illegal", null));
+                return null;
+            }
+        }
+        if (user.getEmail() != null) {
+            if (!user.getEmail().matches("[a-zA-Z0-9_\\-\\.]+@[a-zA-Z0-9_\\-\\.]+\\.[a-zA-Z0-9_\\-\\.]+")) {
+                response.setStatus(400);
+                ResponseUtils.responseJson(response, new RequestResult<>(400, "Email not illegal", null));
+                return null;
+            }
+            User userByEmail = userService.getUserByUsername(user.getEmail());
+            if (userByEmail != null) {
+                response.setStatus(400);
+                ResponseUtils.responseJson(response, new RequestResult<>(400, "Email already exist", null));
+                return null;
+            }
+        }
+        if (user.getAbout() != null){
+            if (user.getAbout().length() > 1000) {
+                response.setStatus(400);
+                ResponseUtils.responseJson(response, new RequestResult<>(400, "About too long", null));
+                return null;
+            }
+        }
+
+        userService.updateUserInfo(user);
+        return null;
+    }
+
+    @PutMapping("/user/{id}/uploadAvatar")
+    public String uploadAvatar(@PathVariable Integer id,
+                               @RequestParam("avatarFile") MultipartFile avatar,
+                               @RequestBody User user,
+                               HttpServletResponse response,
+                               HttpSession session,
+                               HttpServletRequest request) throws IOException {
+        User self = (User) session.getAttribute("user");
+        if (self == null) {
+            response.setStatus(401);
+            ResponseUtils.responseJson(response, new RequestResult<>(401, "Unauthorized", null));
+            return null;
+        }
+        if (!Objects.equals(self.getId(), id)) {
+            response.setStatus(403);
+            ResponseUtils.responseJson(response, new RequestResult<>(403, "Forbidden", null));
+            return null;
+        }
+        if (avatar == null) {
+            response.setStatus(400);
+            ResponseUtils.responseJson(response, new RequestResult<>(400, "Avatar is null", null));
+            return null;
+        }
+        if (avatar.getSize() > 1024 * 1024 * 2) {
+            response.setStatus(400);
+            ResponseUtils.responseJson(response, new RequestResult<>(400, "Avatar too large", null));
+            return null;
+        }
+        String contentType = avatar.getContentType();
+        if (!Objects.equals(contentType, "image/jpeg") && !Objects.equals(contentType, "image/png")) {
+            response.setStatus(400);
+            ResponseUtils.responseJson(response, new RequestResult<>(400, "Avatar not illegal", null));
+            return null;
+        }
+//        String avatarUrl = userService.uploadAvatar(avatar, id);
+//        if (avatarUrl == null) {
+//            response.setStatus(500);
+//            ResponseUtils.responseJson(response, new RequestResult<>(500, "Upload avatar failed", null));
+//            return null;
+//        }
+        return null;
     }
 }

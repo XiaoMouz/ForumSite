@@ -97,6 +97,9 @@ public interface UserMapper extends MPJBaseMapper<User> {
     @Update("update users set password = #{password} where username = #{username} and token = #{token}")
     int updateUserPassword(UserResetDto userResetDto);
 
+    @Update("update users set nickname = #{nickname}, email = #{email}, about = #{about} where id = #{id}")
+    int updateUserInfo(User user);
+
     /**
      * 重写后的 insert ，屏蔽了 id
      * @param entity 用户

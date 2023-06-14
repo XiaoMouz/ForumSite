@@ -229,11 +229,12 @@
                             </div>
                         {% else %}
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            {% if guest.getAbout() != null%}
                             <h5 class="card-title">About</h5>
                             <p class="small fst-italic">
-                                Not Available
+                                {{guest.getAbout()}}
                             </p>
-
+                            {% endif %}
                             <h5 class="card-title">Details</h5>
 
                             <div class="row">
@@ -290,10 +291,39 @@
                                             <img src="{{user.getAvatar_path()}}" alt="Profile" class="rounded-circle" />
                                         {% endif %}
                                         <div class="pt-2">
-                                            <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i
-                                                    class="bi bi-upload"></i></a>
-                                            <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i
-                                                    class="bi bi-trash"></i></a>
+                                            <!-- Avatar form -->
+                                            <a class="btn btn-primary btn-sm mb-3" data-bs-toggle="offcanvas" href="#uploadAvatar" role="button" aria-controls="uploadAvatar" title="Set avatar">
+                                                <i class="bi bi-upload"></i>
+                                            </a>
+
+                                            <div class="offcanvas offcanvas-start" tabindex="-1" id="uploadAvatar" aria-labelledby="uploadAvatarLabel">
+                                                <div class="offcanvas-header">
+                                                    <h5 class="offcanvas-title" id="uploadAvatarLabel">Avatar Upload or Link</h5>
+                                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                                </div>
+                                                <div class="offcanvas-body">
+                                                    <div>
+                                                        You can upload new avatar or set a image link.
+                                                    </div>
+                                                    <div class="row">
+                                                        <form action="/user/{{user.getId()}}/uploadAvatar" method="post">
+                                                            <div class="col-md-12">
+                                                                <div class="mb-3">
+                                                                    <label for="avatarFile" class="form-label">Upload</label>
+                                                                    <input class="form-control" type="file" id="avatarFile">
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="col-md-12">
+                                                                <div class="mb-3">
+                                                                    <label for="avatarUrl" class="form-label">Link</label>
+                                                                    <input class="form-control" type="text" id="avatarUrl">
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary btn-sm">Save Setting</button>
+                                                        </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -308,7 +338,7 @@
                                 <div class="row mb-3">
                                     <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <textarea name="about" class="form-control disabled" disabled id="about" style="height: 100px"> Not available </textarea>
+                                        <textarea name="about" class="form-control" id="about" style="height: 100px">{{user.getAbout()}}</textarea>
                                     </div>
                                 </div>
 

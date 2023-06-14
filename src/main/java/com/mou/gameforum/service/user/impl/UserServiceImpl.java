@@ -183,6 +183,14 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public void updateUserInfo(User user) {
+        int effect = userMapper.updateUserInfo(user);
+        if(effect>1){
+            throw new RuntimeException("更新用户信息时出现多个用户被更新,用户名:"+ user.getUsername());
+        }
+    }
+
     private User setUserLevels(User user) {
         if(user!=null){
             ArrayList<Levels> list = new ArrayList<>();

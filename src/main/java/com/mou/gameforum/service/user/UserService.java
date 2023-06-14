@@ -76,5 +76,9 @@ public interface UserService {
      */
     User getUserByUsername(String username);
 
-
+    /**
+     * 更新用户
+     * @param user 用户
+     */
+    void updateUserInfo(User user);
 }

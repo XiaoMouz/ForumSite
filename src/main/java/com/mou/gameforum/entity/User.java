@@ -86,6 +86,11 @@ public class User {
     @Schema(description = "用户头像相对路径")
     String avatar_path;
     /**
+     * 用户描述
+     */
+    @Schema(description = "用户描述")
+    String about;
+    /**
      * 用户权限组
      */
     @Schema(description = "用户权限组")
