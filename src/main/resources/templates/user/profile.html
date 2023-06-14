@@ -260,11 +260,12 @@
                                             <img src="{{user.getAvatar_path()}}" alt="Profile" class="rounded-circle" />
                                         {% endif %}
                                         <div class="pt-2">
+
                                             <!-- Avatar form -->
+
                                             <a class="btn btn-primary btn-sm mb-3" data-bs-toggle="offcanvas" href="#uploadAvatar" role="button" aria-controls="uploadAvatar" title="Set avatar">
                                                 <i class="bi bi-upload"></i>
                                             </a>
-
                                             <div class="offcanvas offcanvas-start" tabindex="-1" id="uploadAvatar" aria-labelledby="uploadAvatarLabel">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title" id="uploadAvatarLabel">Avatar Upload or Link</h5>
@@ -275,7 +276,9 @@
                                                         You can upload new avatar or set a image link.
                                                     </div>
                                                     <div class="row">
-                                                        <form action="/user/{{user.getId()}}/uploadAvatar" method="post">
+                                                        <form id="avatarForm">
+                                                            <div class="alert visually-hidden" role="alert" id="avatarInfo">
+                                                            </div>
                                                             <div class="col-md-12">
                                                                 <div class="mb-3">
                                                                     <label for="avatarFile" class="form-label">Upload</label>
@@ -291,6 +294,29 @@
                                                             </div>
                                                             <button type="submit" class="btn btn-primary btn-sm">Save Setting</button>
                                                         </form>
+                                                        <script>
+                                                            $(function() {
+                                                                $('#avatarForm').submit(function(event) {
+                                                                    $('#avatarInfo').addClass('visually-hidden').removeClass('alert-success').removeClass('alert-danger').text('');
+                                                                    event.preventDefault();
+                                                                    var formData = new FormData($(this)[0]);
+                                                                    $.ajax({
+                                                                        url: './uploadAvatar',
+                                                                        type: 'POST',
+                                                                        data: formData,
+                                                                        processData: false,
+                                                                        contentType: false,
+                                                                        success: function(response) {
+                                                                            $('#avatarInfo').removeClass('visually-hidden').addClass('alert-success').text('Avatar updated successfully.');
+                                                                        },
+                                                                        error: function(error) {
+                                                                            $('#avatarInfo').removeClass('visually-hidden').addClass('alert-danger').text('Failed to update avatar.');
+                                                                        }
+                                                                    });
+                                                                });
+                                                            });
+
+                                                        </script>
                                                 </div>
                                             </div>
                                         </div>

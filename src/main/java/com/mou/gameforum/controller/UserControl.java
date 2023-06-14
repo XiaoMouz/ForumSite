@@ -442,7 +442,7 @@ public class UserControl {
                 return null;
             }
         }
-
+        user.setAvatar_path(self.getAvatar_path());
         userService.updateUserInfo(user);
         ResponseUtils.responseJson(response, new RequestResult<>(200, "Update user info success", null));
         return null;
@@ -451,6 +451,7 @@ public class UserControl {
     @PutMapping("/user/{id}/uploadAvatar")
     public String uploadAvatar(@PathVariable Integer id,
                                @RequestParam("avatarFile") MultipartFile avatar,
+                               @RequestBody User user,
                                HttpServletResponse response,
                                HttpSession session,
                                HttpServletRequest request) throws IOException {
@@ -465,6 +466,16 @@ public class UserControl {
             ResponseUtils.responseJson(response, new RequestResult<>(403, "Forbidden", null));
             return null;
         }
+        if(user.getAvatar_path()!=null){
+            user.setAbout(self.getAbout());
+            user.setNickname(self.getNickname());
+            user.setEmail(self.getEmail());
+            user.setId(self.getId());
+
+            userService.updateUserInfo(user);
+            ResponseUtils.responseJson(response, new RequestResult<>(200, "Update user info success", null));
+        }
+
         if (avatar == null) {
             response.setStatus(400);
             ResponseUtils.responseJson(response, new RequestResult<>(400, "Avatar is null", null));
@@ -481,6 +492,7 @@ public class UserControl {
             ResponseUtils.responseJson(response, new RequestResult<>(400, "Avatar not illegal", null));
             return null;
         }
+
 //        String avatarUrl = userService.uploadAvatar(avatar, id);
 //        if (avatarUrl == null) {
 //            response.setStatus(500);
