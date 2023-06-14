@@ -3,10 +3,10 @@ domain: 127.0.0.1:1000
 server:
   port: 1000
 
-# datasource
+# spring config datasource and mail
 spring:
   application:
-    name: SchoolMangerSpring
+    name: SchoolMangerSpring # application name
   datasource:
     url: ${DB_URL:localhost} # database url
     username: ${DB_USERNAME:username} # database username
@@ -20,7 +20,11 @@ spring:
     host: smtp.mou.best
     username: forum@mou.best
     password: "*pR@5CFFM9p@#Hq"
+  servlet:
+    multipart:
+      max-file-size: 5MB # max file size
 
+# pebble config
 pebble:
   enabled: true
   prefix: templates/
@@ -38,10 +42,13 @@ logging:
     com.mou.gameforum.controller: info
     com.baomidou.mybatisplus: debug
 
+#mybatis plus
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl # mybatis plus log config
     map-underscore-to-camel-case: false #  camel case config
+
+# spring doc
 springdoc:
   api-docs:
     path: /api-docs
@@ -51,3 +58,7 @@ springdoc:
     disable-swagger-default-url: true
     url: /api-docs
     path: /swagger
+
+# storage config
+storage:
+  location: files
