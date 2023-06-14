@@ -1,12 +1,16 @@
 package com.mou.gameforum;
 
 import com.mou.gameforum.filter.AuthFilter;
+import com.mou.gameforum.service.StorageService;
 import org.jetbrains.annotations.NotNull;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -18,6 +22,8 @@ import java.util.Scanner;
 @SpringBootApplication
 @Configuration
 @MapperScan("com.mou.gameforum.mapper")
+@EnableConfigurationProperties
+@ConfigurationPropertiesScan("com.mou.gameforum.config")
 public class GameForumApplication {
     @Autowired
     AuthFilter authFilter;
@@ -44,23 +50,28 @@ public class GameForumApplication {
              */
             @Override
             public void addInterceptors(@NotNull InterceptorRegistry registry) {
-                registry.addInterceptor(authFilter).addPathPatterns("/**")
-                        .excludePathPatterns(
-                                "/404",
-                                "/500",
-                                "/login/**",
-                                "/register/**",
-                                "/reset/**",
-                                "/logout",
-                                "/api/**",
-                                "/assets/**",
-                                "/"
-                        ); // 例外路径
+//                registry.addInterceptor(authFilter).addPathPatterns("/**")
+//                        .excludePathPatterns(
+//                                "/404",
+//                                "/500",
+//                                "/login/**",
+//                                "/register/**",
+//                                "/reset/**",
+//                                "/logout",
+//                                "/api/**",
+//                                "/assets/**",
+//                                "/"
+//                        ); // 例外路径
             }
 
         };
     }
-
+    @Bean
+    CommandLineRunner init(StorageService storageService) {
+        return (args) -> {
+            storageService.init();
+        };
+    }
     public static void main(String[] args) {
         SpringApplication.run(GameForumApplication.class, args);
     }
