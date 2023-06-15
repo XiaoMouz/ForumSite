@@ -8,6 +8,7 @@ import com.mou.gameforum.entity.dto.UserResetDto;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
 import com.mou.gameforum.entity.vo.RequestResult;
 import com.mou.gameforum.mapper.user.UserMapper;
+import com.mou.gameforum.service.StorageService;
 import com.mou.gameforum.service.user.UserService;
 import com.mou.gameforum.utils.ResponseUtils;
 import jakarta.annotation.Resource;
@@ -31,6 +32,9 @@ public class UserControl {
 
     @Resource
     UserMapper userMapper;
+
+    @Resource
+    StorageService storageService;
 
     /**
      * 用户登录页面
@@ -451,7 +455,6 @@ public class UserControl {
     @PutMapping("/user/{id}/uploadAvatar")
     public String uploadAvatar(@PathVariable Integer id,
                                @RequestParam("avatarFile") MultipartFile avatar,
-                               @RequestBody User user,
                                HttpServletResponse response,
                                HttpSession session,
                                HttpServletRequest request) throws IOException {
@@ -466,16 +469,6 @@ public class UserControl {
             ResponseUtils.responseJson(response, new RequestResult<>(403, "Forbidden", null));
             return null;
         }
-        if(user.getAvatar_path()!=null){
-            user.setAbout(self.getAbout());
-            user.setNickname(self.getNickname());
-            user.setEmail(self.getEmail());
-            user.setId(self.getId());
-
-            userService.updateUserInfo(user);
-            ResponseUtils.responseJson(response, new RequestResult<>(200, "Update user info success", null));
-        }
-
         if (avatar == null) {
             response.setStatus(400);
             ResponseUtils.responseJson(response, new RequestResult<>(400, "Avatar is null", null));
@@ -492,13 +485,11 @@ public class UserControl {
             ResponseUtils.responseJson(response, new RequestResult<>(400, "Avatar not illegal", null));
             return null;
         }
-
-//        String avatarUrl = userService.uploadAvatar(avatar, id);
-//        if (avatarUrl == null) {
-//            response.setStatus(500);
-//            ResponseUtils.responseJson(response, new RequestResult<>(500, "Upload avatar failed", null));
-//            return null;
-//        }
+        // rename avatar file to user id
+        storageService.storeAvatar(avatar,id);
+        String s = Objects.requireNonNull(avatar.getOriginalFilename()).split("\\.")[1]; // 文件后缀名
+        self.setAvatar_path("/files/avatar/" + id + "."+s);
+        userService.updateUserInfo(self);
         return null;
     }
 }

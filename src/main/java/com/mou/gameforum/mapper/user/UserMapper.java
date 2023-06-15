@@ -97,7 +97,7 @@ public interface UserMapper extends MPJBaseMapper<User> {
     @Update("update users set password = #{password} where username = #{username} and token = #{token}")
     int updateUserPassword(UserResetDto userResetDto);
 
-    @Update("update users set nickname = #{nickname}, email = #{email}, about = #{about} where id = #{id}")
+    @Update("update users set nickname = #{nickname}, email = #{email}, about = #{about}, avatar_path = #{avatar_path} where id = #{id}")
     int updateUserInfo(User user);
 
     /**

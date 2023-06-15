@@ -1,18 +1,19 @@
 {% extends "_base" %}
 
 {% block main %}
-{% if files == null%}
+{% if files == null and directories == null %}
 <div class="alert alert-warning" role="alert">
     No file!
 </div>
 {% else %}
+<h1 class="h3 mb-3 fw-normal">{{directory}}</h1>
 <ul class="list-group">
-    {% for directory in directories%}
+    {% for d in directories%}
     <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-            <div class="fw-bold">{{directory}}</div>
+            <div class="fw-bold">{{d}}</div>
         </div>
-        <a type="button" href="{{directory}}" target="_blank" class="btn btn-secondary">Open</a>
+        <a type="button" href="{{d}}" target="_blank" class="btn btn-secondary">Open</a>
     </li>
     {% endfor %}
     {% for file in files %}

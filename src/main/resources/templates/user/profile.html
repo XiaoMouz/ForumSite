@@ -276,7 +276,7 @@
                                                         You can upload new avatar or set a image link.
                                                     </div>
                                                     <div class="row">
-                                                        <form id="avatarForm">
+                                                        <form id="cavatarForm" name="cavatarForm">
                                                             <div class="alert visually-hidden" role="alert" id="avatarInfo">
                                                             </div>
                                                             <div class="col-md-12">
@@ -285,25 +285,25 @@
                                                                     <input class="form-control" type="file" id="avatarFile">
                                                                 </div>
                                                             </div>
-                                                            <br>
-                                                            <div class="col-md-12">
-                                                                <div class="mb-3">
-                                                                    <label for="avatarUrl" class="form-label">Link</label>
-                                                                    <input class="form-control" type="text" id="avatarUrl">
-                                                                </div>
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary btn-sm">Save Setting</button>
+                                                            <button id="avatarFormSubmit" type="button" class="btn btn-primary btn-sm">Save Setting</button>
                                                         </form>
                                                         <script>
                                                             $(function() {
-                                                                $('#avatarForm').submit(function(event) {
-                                                                    $('#avatarInfo').addClass('visually-hidden').removeClass('alert-success').removeClass('alert-danger').text('');
+                                                                $('#avatarFormSubmit').click(function(event) {
                                                                     event.preventDefault();
-                                                                    var formData = new FormData($(this)[0]);
+                                                                    $('#avatarInfo').addClass('visually-hidden').removeClass('alert-success').removeClass('alert-danger').text('');
+
+                                                                    // var cform =$('#cavatarForm').eq(0)[0]
+                                                                    var file = $('#avatarFile')[0].files[0]
+                                                                    console.log(file)
+                                                                    var cc = new FormData()
+                                                                    cc.append('avatarFile', file);
+                                                                    console.log(cc)
+
                                                                     $.ajax({
-                                                                        url: './uploadAvatar',
-                                                                        type: 'POST',
-                                                                        data: formData,
+                                                                        url: window.location.href+'/uploadAvatar',
+                                                                        type: 'PUT',
+                                                                        data: cc,
                                                                         processData: false,
                                                                         contentType: false,
                                                                         success: function(response) {

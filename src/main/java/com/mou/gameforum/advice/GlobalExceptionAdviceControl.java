@@ -1,6 +1,8 @@
 package com.mou.gameforum.advice;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RestController
 public class GlobalExceptionAdviceControl {
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionAdviceControl.class);
     /**
      * 404 页面
      * @return ModelAndView
@@ -28,6 +31,7 @@ public class GlobalExceptionAdviceControl {
     @ExceptionHandler(Exception.class)
     @RequestMapping("/500")
     public ModelAndView handleException(Exception error,HttpServletResponse response) {
+        logger.error(error.getMessage());
         response.setStatus(500);
         ModelAndView modelAndView = new ModelAndView();
 
