@@ -1,6 +1,7 @@
 package com.mou.gameforum.entity;
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -30,11 +31,13 @@ public class Zone {
      * 大区管理员
      */
     @Schema(description = "大区管理员")
+    @TableField(exist = false)
     User[] moderator;
     /**
      * 大区管理员权限组
      */
     @Schema(description = "大区管理组")
+    @TableField(exist = false)
     Levels[] levels;
     /**
      * 大区图标相对路径
@@ -45,6 +48,7 @@ public class Zone {
      * 大区下版块
      */
     @Schema(description = "大区下版块")
+    @TableField(exist = false)
     List<Section> sections;
     @Override
     public String toString() {

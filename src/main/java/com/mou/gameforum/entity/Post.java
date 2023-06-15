@@ -38,6 +38,11 @@ public class Post {
     @Schema(description = "文章修改时间")
     Date modifyTime;
     /**
+     * 文章封面
+     */
+    @Schema(description = "文章封面")
+    String headImage;
+    /**
      * 标题
      */
     @Schema(description = "文章标题")
@@ -51,6 +56,7 @@ public class Post {
      * 合作者
      */
     @Schema(description = "文章合作者发布者")
+    @TableField(exist = false)
     List<User> collaborator;
     /**
      * 评论

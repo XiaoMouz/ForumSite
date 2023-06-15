@@ -9,6 +9,7 @@ import com.mou.gameforum.entity.enums.UserStatusEnum;
 import com.mou.gameforum.entity.vo.EmailTemplate;
 import com.mou.gameforum.mapper.user.UserMapper;
 import com.mou.gameforum.service.EmailService;
+import com.mou.gameforum.service.content.ZoneService;
 import com.mou.gameforum.service.user.UserService;
 import com.mou.gameforum.utils.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,9 @@ class GameForumApplicationTests {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    ZoneService zoneService;
 
     @Test
     void testMySQlInsert(){
@@ -70,6 +74,11 @@ class GameForumApplicationTests {
         }else {
             System.out.println("发送失败");
         }
+    }
+
+    @Test
+    void testContent(){
+        zoneService.getZoneList().forEach(System.out::println);
     }
 }
 

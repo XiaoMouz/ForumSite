@@ -1,6 +1,7 @@
 package com.mou.gameforum.entity;
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mou.gameforum.entity.enums.CommentStatusEnum;;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -40,6 +41,7 @@ public class Comments {
      * 子评论
      */
     @Schema(description = "子评论")
+    @TableField(exist = false)
     List<Comments> subComment;
     /**
      * 评论状态

@@ -1,5 +1,6 @@
 package com.mou.gameforum.service.user.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mou.gameforum.entity.Levels;
 import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
@@ -21,7 +22,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl
+        extends ServiceImpl<UserMapper, User>
+        implements UserService {
 
     @Value("${domain}")
     String domain;

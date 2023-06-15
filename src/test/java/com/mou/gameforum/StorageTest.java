@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -28,6 +29,7 @@ public class StorageTest {
     private StorageService service;
 
     @BeforeEach
+    @Qualifier
     public void init() {
         properties.setLocation("target/files/" + Math.abs(new Random().nextLong()));
         service.init();

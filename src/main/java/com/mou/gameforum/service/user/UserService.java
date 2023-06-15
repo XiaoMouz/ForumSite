@@ -1,5 +1,6 @@
 package com.mou.gameforum.service.user;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
@@ -7,8 +8,7 @@ import com.mou.gameforum.entity.dto.UserRegisterDto;
 import com.mou.gameforum.entity.dto.UserResetDto;
 import org.springframework.stereotype.Service;
 
-@Service
-public interface UserService {
+public interface UserService extends IService<User> {
     /**
      * 登录
      * @param loginDto 登录 dto
