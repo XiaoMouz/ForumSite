@@ -26,6 +26,7 @@ public class Post {
      * 发布者
      */
     @Schema(description = "文章发布者")
+    @TableField(exist = false)
     User publisher;
     /**
      * 发布时间

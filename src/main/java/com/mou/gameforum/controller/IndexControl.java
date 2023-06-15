@@ -40,7 +40,7 @@ public class IndexControl {
         return modelAndView;
     }
 
-    @GetMapping("/{zoneId}/{sectionId}")
+    @GetMapping("/site/{zoneId}/{sectionId}")
     public ModelAndView section(@PathVariable("zoneId") Integer zoneId,
                                  @PathVariable("sectionId") Integer sectionId,
                                  @RequestParam(value = "page",defaultValue = "1") Integer page){
@@ -50,6 +50,21 @@ public class IndexControl {
         modelAndView.addObject("posts",postService.getPostListBySectionId(sectionId,page));
         modelAndView.addObject("page",page);
         modelAndView.addObject("totalPage",postService.getTotalPageBySectionId(sectionId));
+        return modelAndView;
+    }
+
+    @GetMapping("/site/{zoneId}/{sectionId}/{postId}")
+    public ModelAndView post(@PathVariable("zoneId") Integer zoneId,
+                              @PathVariable("sectionId") Integer sectionId,
+                              @PathVariable("postId") Integer postId,
+                             @RequestParam(value = "commentPage",defaultValue = "1") Integer commentPage) {
+        ModelAndView modelAndView = new ModelAndView("content/post");
+        modelAndView.addObject("zone", zoneService.getById(zoneId));
+        modelAndView.addObject("section", sectionService.getById(sectionId));
+        modelAndView.addObject("post", postService.getPostById(postId));
+        modelAndView.addObject("commentPage", commentPage);
+        modelAndView.addObject("totalCommentPage", commentService.getTotalPageByPostId(postId));
+        modelAndView.addObject("comments", commentService.getCommentsByPostId(postId, commentPage));
         return modelAndView;
     }
 

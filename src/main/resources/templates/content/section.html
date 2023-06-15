@@ -1,0 +1,66 @@
+{% extends "_base" %}
+
+{% block main %}
+<main class="container">
+    <div style="background-color: cornflowerblue" class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="38" fill="currentColor" class="bi bi-arrow-down-right-circle-fill" viewBox="0 0 16 16">
+                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm5.904-2.803a.5.5 0 1 0-.707.707L9.293 10H6.525a.5.5 0 0 0 0 1H10.5a.5.5 0 0 0 .5-.5V6.525a.5.5 0 0 0-1 0v2.768L5.904 5.197z"/>
+            </svg>
+        </div>
+        <div class="lh-1">
+            <h1 class="h6 mb-0 text-white lh-1">You are in the {{zone.getName}}</h1>
+            <small>{{zone.getDescription()}}</small>
+        </div>
+    </div>
+{% if posts.size() != 0%}
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h6 class="border-bottom pb-2 mb-0">{{section.getName()}}</h6>
+        {% for post in posts%}
+        <a href="{{ request.contextPath }}/site/{{zone.getId()}}/{{section.getId()}}/{{post.getId}}">
+            <div class="d-flex text-muted pt-3">
+                <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+
+                <p class="pb-3 mb-0 small lh-sm border-bottom">
+                    <strong class="d-block text-gray-dark">{{post.getTitle()}}</strong>
+                    Views: {{post.getViews()}}   Likes: {{post.getLikes()}}   Comments: {{post.getCommentsCount()}}
+                </p>
+            </div>
+        </a>
+        {% endfor %}
+        <nav aria-label="Page navigation" class="align-content-end">
+            <ul class="pagination">
+                <li class="page-item  {% if page==1 %} disabled {% endif %}">
+                    <a class="page-link" href="{{ request.contextPath }}?page=1" aria-label="Start">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% if page == totalPage and page-2 >= 1 %}
+                <li class="page-item"><a class="page-link" href="{{ request.contextPath }}?page={{page-2}}">{{page-2}}</a></li>
+                {% endif %}
+                <li class="page-item  {% if page==1 %} visually-hidden {% endif %}"><a class="page-link" href="{{ request.contextPath }}?page={{page-1}}">{{page-1}}</a></li>
+                <li class="page-item disabled"><span class="page-link" href="#">{{page}}</span></li>
+                <li class="page-item  {% if page==totalPage %} visually-hidden {% endif %}"><a class="page-link" href="{{ request.contextPath }}?page={{page+1}}">{{page+1}}</a></li>
+                {% if page == 1 and page+2 <= totalPage %}
+                <li class="page-item"><a class="page-link" href="{{ request.contextPath }}?page={{page+2}}">{{page+2}}</a></li>
+                {% endif %}
+                <li class="page-item {% if page==totalPage %} disabled {% endif %}">
+                    <a class="page-link" href="{{ request.contextPath }}?page={{totalPage}}" aria-label="End">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    {% else %}
+    <div class="alert alert-secondary" role="alert">
+       This section didn't have posts...
+    </div>
+    {% endif %}
+
+
+</main>
+
+
+
+{% endblock %}

@@ -4,13 +4,18 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.yulichang.base.MPJBaseMapper;
 import com.mou.gameforum.entity.Post;
 import com.mou.gameforum.entity.Section;
+import com.mou.gameforum.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 @Mapper
 public interface PostMapper extends MPJBaseMapper<Post> {
+
+    @Select("select * from users where users.id = (select publisher FROM posts WHERE posts.id = #{postId})")
+    User getPostPublisher(Integer postId);
 
     /**
      * 发帖

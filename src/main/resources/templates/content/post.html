@@ -1,24 +1,40 @@
 {% extends "_base" %}
 
 {% block main %}
+<main class="container">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">{{post.getTitle()}}</h1>
+            <p id="content" class="col-md-8 fs-4">
+                {{post.getContent()}}
+            </p>
+        </div>
+    </div>
 
-
-
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+    <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+            <div style="
+            background-image: url( {{post.getPublisher().getAvatarLink()}});
+            background-position: center;
+            background-size: cover;
+            background-blend-mode: overlay;"
+                 class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2>Publisher: {{post.getPublisher().getNickname()}}</h2>
+                <p>About: {{post.getPublisher().getAbout()}}</p>
+                <p>Levels: {% for level in post.getPublisher.getLevels() %}
+                    &nbsp;<span style="color: {{level.getColor()}} ;">{{level.getLevelName()}}</span>&nbsp;&nbsp;
+                    {% endfor %} </p>
+                <a href="/user/{{post.getPublisher().getId()}}" target="_blank" class="btn btn-outline-light" type="button">User profile</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="h-100 p-5 bg-light border rounded-3">
+                <h2>Post info</h2>
+                <p>Release time: {{post.getReleaseTime()}}</p>
+                <p>Last Modify Time: {{post.getModifyTime()}}</p>
+                <P>Views: {{post.getViews()}} Likes: {{post.getLikes()}} Comments: {{post.getCommentsCount()}}</P>
+            </div>
+        </div>
+    </div>
+</main>
 {% endblock %}
