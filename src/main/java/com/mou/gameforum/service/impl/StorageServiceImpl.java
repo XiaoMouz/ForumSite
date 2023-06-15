@@ -218,6 +218,10 @@ public class StorageServiceImpl implements StorageService {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
             Path path1 = Paths.get(this.rootLocation.toString(),"Avatar");
+            // if path not exist create
+            if(!Files.exists(path1)) {
+                Files.createDirectory(path1);
+            }
             //rename file to userid
             String filename = userid + "." + Objects.requireNonNull(file.getOriginalFilename()).split("\\.")[1];
             Files.copy(file.getInputStream(), path1.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
