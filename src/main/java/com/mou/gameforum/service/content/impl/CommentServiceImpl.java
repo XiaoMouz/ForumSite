@@ -28,6 +28,9 @@ public class CommentServiceImpl
         queryWrapper.eq("status", PostStatusEnum.PUBLISH);
         Page<Comments> p = new Page<>(page,10);
         List<Comments> comments = commentMapper.selectPage(p, queryWrapper).getRecords();
+        comments.forEach(comment -> {
+            comment.setUid(commentMapper.getCommentPublisher(comment.getId()));
+        });
         return comments;
     }
 
@@ -37,5 +40,19 @@ public class CommentServiceImpl
         queryWrapper.eq("status", PostStatusEnum.PUBLISH);
         int total = Math.toIntExact(commentMapper.selectCount(queryWrapper));
         return total%10==0?total/10:total/10+1;
+    }
+
+    public Comments getSubCommentByIdPage(Comments comments,Integer page){
+        QueryWrapper<Comments> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("pid",comments.getId());
+        queryWrapper.eq("fid",comments.getId());
+        queryWrapper.eq("status", PostStatusEnum.PUBLISH);
+        Page<Comments> p = new Page<>(page,10);
+        List<Comments> subComments = commentMapper.selectPage(p, queryWrapper).getRecords();
+        subComments.forEach(subComment -> {
+            subComment.setUid(commentMapper.getCommentPublisher(subComment.getId()));
+        });
+        comments.setSubComment(subComments);
+        return comments;
     }
 }

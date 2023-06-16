@@ -25,7 +25,6 @@
                     location.assign('./');
                 },
                 error: function (xhr) {
-                    $('#error').removeClass('visually-hidden')
                     console.log(xhr);
                     if (xhr.status === 301 || xhr.status === 302) {
                         // 如果是跳转状态码，解析 Location 头并进行跳转
@@ -39,6 +38,7 @@
                     if (xhr.status === 200 || xhr.status === 201) {
                         location.assign('./');
                     }
+                    $('#error').removeClass('visually-hidden')
                     $('#signinForm button').removeClass('disabled');
                     let resp = xhr.responseJSON
                     console.log(resp)

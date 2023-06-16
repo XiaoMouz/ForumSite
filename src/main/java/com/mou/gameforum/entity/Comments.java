@@ -26,7 +26,7 @@ public class Comments {
      * 评论者
      */
     @Schema(description = "评论发布者")
-    User publisher;
+    User uid;
     /**
      * 评论发布时间
      */

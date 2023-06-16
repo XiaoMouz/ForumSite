@@ -83,7 +83,7 @@
                 >
                     {% if self %}
                         {% if user.getAvatar_path()!=null %}
-                            <img src="{{user.getAvatar_path()}}" alt="Profile" class="rounded-circle" />
+                            <img src="{{user.getAvatar_path()}}" width="96" height="96" alt="Profile" class="rounded-circle" />
                         {% endif %}
                         <h2>{{user.getNickname()}}</h2>
                         <h3 style="color:{{user.findMaxLevel().getColor()}};font-weight:bold;">{{user.findMaxLevel().getLevelName()}}</h3>
@@ -95,7 +95,7 @@
 <!--                        </div>-->
                     {% else %}
                         {% if guest.getAvatar_path()!=null %}
-                        <img src="{{guest.getAvatar_path()}}" alt="Profile" class="rounded-circle" />
+                        <img src="{{guest.getAvatar_path()}}" width="96" height="96" alt="Profile" class="rounded-circle" />
                         {% endif %}
                         <h2>{{guest.getNickname()}}</h2>
                         <h3 style="color:{{guest.findMaxLevel().getColor()}};font-weight:bold;">{{guest.findMaxLevel().getLevelName()}}</h3>
@@ -308,6 +308,10 @@
                                                                         contentType: false,
                                                                         success: function(response) {
                                                                             $('#avatarInfo').removeClass('visually-hidden').addClass('alert-success').text('Avatar updated successfully.');
+                                                                            // refresh page
+                                                                            setTimeout(function() {
+                                                                                window.location.reload();
+                                                                            }, 1000);
                                                                         },
                                                                         error: function(error) {
                                                                             $('#avatarInfo').removeClass('visually-hidden').addClass('alert-danger').text('Failed to update avatar.');

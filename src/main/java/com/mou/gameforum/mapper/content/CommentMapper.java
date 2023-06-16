@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.yulichang.base.MPJBaseMapper;
 import com.mou.gameforum.entity.Comments;
 import com.mou.gameforum.entity.Post;
+import com.mou.gameforum.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -46,4 +47,7 @@ public interface CommentMapper extends MPJBaseMapper<Comments> {
      */
     @Select("select * from comments where fid = #{id}")
     List<Comments> selectByFatherCommentId(Integer id);
+
+    @Select("select * from users where users.id = (select uid FROM comments WHERE comments.id = #{commentId})")
+    User getCommentPublisher(Integer commentId);
 }

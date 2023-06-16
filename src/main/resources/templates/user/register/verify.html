@@ -3,7 +3,7 @@
 {% block main %}
 <form id="verifyForm" method="get" action="/register/verify">
     <h1 class="h3 mb-3 fw-normal">Verify account</h1>
-    {%% if message != null}
+    {% if message != null %}
     <div class="w-50 alert alert-warning" role="alert">
         <p id="warning" class="text-danger">{{message}}</p>
     </div>
