@@ -1,5 +1,7 @@
 package com.mou.gameforum.controller;
 
+import com.mou.gameforum.entity.Post;
+import com.mou.gameforum.entity.Section;
 import com.mou.gameforum.mapper.user.UserMapper;
 import com.mou.gameforum.service.content.CommentService;
 import com.mou.gameforum.service.content.PostService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Controller("/")
 public class IndexControl {
@@ -65,6 +68,18 @@ public class IndexControl {
         modelAndView.addObject("commentPage", commentPage);
         modelAndView.addObject("totalCommentPage", commentService.getTotalPageByPostId(postId));
         modelAndView.addObject("comments", commentService.getCommentsByPostId(postId, commentPage));
+        return modelAndView;
+    }
+
+    @GetMapping("/search")
+    public ModelAndView search(@RequestParam("keyword") String keyword){
+        ModelAndView modelAndView = new ModelAndView("search");
+
+        modelAndView.addObject("keyword",keyword);
+        List<Post> post =  postService.getPostListByKeyword(keyword);
+        modelAndView.addObject("posts",post);
+        modelAndView.addObject("zone", 1);
+        modelAndView.addObject("section", 1);
         return modelAndView;
     }
 

@@ -78,4 +78,21 @@ public class PostServiceImpl
         }
         return user;
     }
+
+    @Override
+    public List<Post> getPostListByKeyword(String keyword) {
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("content",keyword);
+        queryWrapper.eq("status", PostStatusEnum.PUBLISH);
+        List<Post> posts = postMapper.selectList(queryWrapper);
+        posts.forEach(post -> {
+            post.setPublisher(postMapper.getPostPublisher(post.getId()));
+            post.setPublisher(setUserLevels(post.getPublisher()));
+        });
+        queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("title",keyword);
+        queryWrapper.eq("status", PostStatusEnum.PUBLISH);
+        posts.addAll(postMapper.selectList(queryWrapper));
+        return posts;
+    }
 }

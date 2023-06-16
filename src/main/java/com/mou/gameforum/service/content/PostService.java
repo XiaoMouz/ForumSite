@@ -11,4 +11,5 @@ public interface PostService extends IService<Post> {
 
     Integer getTotalPageBySectionId(Integer sectionId);
     Post getPostById(Integer id);
+    List<Post> getPostListByKeyword(String keyword);
 }

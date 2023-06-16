@@ -4,6 +4,7 @@ package com.mou.gameforum.entity;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -81,6 +82,9 @@ public class Post {
      */
     @Schema(description = "点赞数")
     Integer likes;
+
+    @JsonIgnore
+    Integer sid;
     @Override
     public String toString() {
         return JSON.toJSONString(this);
