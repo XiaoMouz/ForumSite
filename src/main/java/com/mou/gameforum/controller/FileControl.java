@@ -4,11 +4,13 @@ package com.mou.gameforum.controller;
 import com.mou.gameforum.entity.vo.RequestResult;
 import com.mou.gameforum.service.StorageService;
 import com.mou.gameforum.utils.ResponseUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,8 +65,10 @@ public class FileControl {
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
         Resource file = storageService.loadAsResource(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     @GetMapping("/directories/{directory:.+}/files")
@@ -110,8 +114,12 @@ public class FileControl {
     public ResponseEntity<Resource> serveFileInDirectory(@PathVariable String directory, @PathVariable String filename) {
         logger.info("download"+directory+"/"+filename);
         Resource file = storageService.loadAsResource(directory + "/" + filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        //return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+        //        "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     @GetMapping("/directories/{directory:.+}/{filename:.+}")
