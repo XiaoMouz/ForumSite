@@ -50,18 +50,18 @@ public class GameForumApplication {
              */
             @Override
             public void addInterceptors(@NotNull InterceptorRegistry registry) {
-//                registry.addInterceptor(authFilter).addPathPatterns("/**")
-//                        .excludePathPatterns(
-//                                "/404",
-//                                "/500",
-//                                "/login/**",
-//                                "/register/**",
-//                                "/reset/**",
-//                                "/logout",
-//                                "/api/**",
-//                                "/assets/**",
-//                                "/"
-//                        ); // 例外路径
+                registry.addInterceptor(authFilter).addPathPatterns("/**")
+                        .excludePathPatterns(
+                                "/404",
+                                "/500",
+                                "/login/**",
+                                "/register/**",
+                                "/reset/**",
+                                "/logout",
+                                "/api/**",
+                                "/assets/**",
+                                "/"
+                        ); // 例外路径
             }
 
         };
