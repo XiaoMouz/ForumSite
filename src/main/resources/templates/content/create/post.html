@@ -1,0 +1,131 @@
+{% extends "_base" %}
+
+{% block main%}
+<div class="row g-5">
+    <div class="col-md-7 col-lg-8">
+        {% if post == null%}
+        <h4 class="mb-3">New Post</h4>
+        {% else %}
+        <h4 class="mb-3">Edit {{post.getTitle()}}</h4>
+        {% endif %}
+        <div id="error" class="w-50 alert alert-danger visually-hidden" role="alert">
+        </div>
+        <div id="info" class="w-50 alert alert-info visually-hidden"></div>
+        <form id="postForm" class="needs-validation" novalidate="">
+            <div class="row g-3">
+                <div class="col-sm-12">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="" value="{{post.getTitle()}}" required="">
+                </div>
+
+<!--                <div class="col-12">-->
+<!--                    <label for="username" class="form-label">Username</label>-->
+<!--                    <div class="input-group has-validation">-->
+<!--                        <span class="input-group-text">@</span>-->
+<!--                        <input type="text" class="form-control" id="username" placeholder="Username" required="">-->
+<!--                        <div class="invalid-feedback">-->
+<!--                            Your username is required.-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="col-12">
+                    <select class="form-select" aria-label="Default select example" name="section">
+                        <option value="1" selected>Select a section</option>
+                        {% for section in sections %}
+                        <option value="{{section.getId()}}">{{section.getName()}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label for="content" class="col-md-4 col-lg-3 col-form-label">Content</label>
+                    <div class="co-12">
+                        <textarea name="content" class="form-control" id="content" style="height: 500px">{{post.getContent()}}</textarea>
+                    </div>
+                </div>
+                <button class="w-25 btn btn-primary btn-lg" type="submit">Post</button> &nbsp;&nbsp;&nbsp;
+                {% if post == null%}
+                <a href="/" class="w-25 btn btn-danger btn-lg">Cancel</a>
+                {% else %}
+                <a href="/content/delete/{{post.getId()}}?delete=true" class="w-25 btn btn-danger btn-lg">Delete</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // get form data and post to server
+    $(document).ready(function() {
+        $("#postForm").submit(function(event) {
+            $('#error').addClass('visually-hidden')
+            $('#postForm button').addClass('disabled');
+            $('#info').addClass('visually-hidden')
+            $('#info').text('');
+            $('#error').text('');
+            //防止表单的默认行为
+            event.preventDefault();
+            // check form is ''?
+            if ($("#title").val() === '' || $("#content").val() === '') {
+                $('#error').removeClass('visually-hidden')
+                $('#postForm button').removeClass('disabled');
+                $('#error').text('Title or content is empty');
+                return;
+            }
+            //获取表单数据
+            var formData = {
+                title: $("#title").val(),
+                section: $("select[name='section']").val(),
+                content: $("#content").val()
+            };
+            //发送ajax请求
+            $.ajax({
+                {% if post == null%}
+                type: "POST",
+                {% else %}
+                type: 'PUT',
+                {% endif %}
+                url: "#",
+                data: JSON.stringify(formData),
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                success: function(data) {
+                $('info').text('Post update success')
+                $('info').removeClass('visually-hidden')
+                },
+                error: function(xhr) {
+                    //请求失败的处理
+                    console.log(xhr);
+                    if(xhr.status === 500){
+                        $('#error').removeClass('visually-hidden')
+                        $('#signinForm button').removeClass('disabled');
+                        $('#error').text('Server error, post fail');
+                        return;
+                    }
+                    if (xhr.status === 301 || xhr.status === 302) {
+                        // 如果是跳转状态码，解析 Location 头并进行跳转
+                        const locationHeader = xhr.getResponseHeader('Location');
+                        if (locationHeader) {
+                            console.log('Jumping to:', locationHeader);
+                            location.assign(locationHeader);
+                            return;
+                        }
+                    }
+                    if (xhr.status === 200 || xhr.status === 201) {
+                        $('info').text('Post update success')
+                        $('info').removeClass('visually-hidden')
+                    }
+                    $('#error').removeClass('visually-hidden')
+                    $('#signinForm button').removeClass('disabled');
+                    let resp = xhr.responseJSON
+                    console.log(resp)
+                    switch (resp.code) {
+                        default: $('#error').text("post fail"); break;
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

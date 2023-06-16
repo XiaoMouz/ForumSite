@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mou.gameforum.entity.enums.PostStatusEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -85,6 +86,11 @@ public class Post {
 
     @JsonIgnore
     Integer sid;
+    /**
+     * 文章状态
+     */
+    @Schema(description = "文章状态")
+    PostStatusEnum status;
     @Override
     public String toString() {
         return JSON.toJSONString(this);

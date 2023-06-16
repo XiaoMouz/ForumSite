@@ -26,9 +26,13 @@
         <li><a href="/files" class="nav-link link-secondary">Files</a></li>
       </ul>
 
-      <form id="searchForm" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search" id="searchContent">
+      <form action="/search" method="get" id="searchForm" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <input name="keyword" type="search" class="form-control" placeholder="Search..." aria-label="Search" id="keyword">
       </form>
+
+      {% if user != null %}
+      <a style="margin-right: 10px;" href="/content/create" class="btn btn-outline-secondary">New Post</a>
+      {% endif %}
 
       <div class="dropdown text-end">
         {% if user == null%}
@@ -38,7 +42,6 @@
         {% endif%}
 
         {% if user != null %}
-
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
           {% if user.getAvatar_path()!=null %}
             <img src="{{ user.getAvatar_path() }}" alt="avatar" width="32" height="32" class="rounded-circle">

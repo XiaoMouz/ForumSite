@@ -2,16 +2,26 @@ package com.mou.gameforum;
 
 import com.mou.gameforum.controller.FileControl;
 import com.mou.gameforum.entity.Levels;
+import com.mou.gameforum.entity.Post;
+import com.mou.gameforum.entity.Section;
 import com.mou.gameforum.entity.User;
 import com.mou.gameforum.entity.dto.NetworkRequestDto;
+import com.mou.gameforum.entity.dto.PostDto;
 import com.mou.gameforum.entity.dto.UserLoginDto;
+import com.mou.gameforum.entity.enums.PostStatusEnum;
 import com.mou.gameforum.entity.enums.UserStatusEnum;
 import com.mou.gameforum.entity.vo.EmailTemplate;
+import com.mou.gameforum.entity.vo.RequestResult;
+import com.mou.gameforum.mapper.content.PostMapper;
+import com.mou.gameforum.mapper.content.SectionMapper;
 import com.mou.gameforum.mapper.user.UserMapper;
 import com.mou.gameforum.service.EmailService;
+import com.mou.gameforum.service.content.PostService;
 import com.mou.gameforum.service.content.ZoneService;
 import com.mou.gameforum.service.user.UserService;
+import com.mou.gameforum.utils.ResponseUtils;
 import com.mou.gameforum.utils.StringUtils;
+import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +42,12 @@ class GameForumApplicationTests {
 
     @Autowired
     ZoneService zoneService;
+
+    @Autowired
+    SectionMapper sectionMapper;
+
+    @Autowired
+    PostMapper postMapper;
 
     @Test
     void testMySQlInsert(){
@@ -79,6 +95,22 @@ class GameForumApplicationTests {
     @Test
     void testContent(){
         zoneService.getZoneList().forEach(System.out::println);
+    }
+
+
+    @Resource
+    PostService postService;
+    @Test
+    void testNewPost(){
+
+        User user = userService.loginByDto(new UserLoginDto("Yukki","123000"), new NetworkRequestDto("::1",new Date()));
+        PostDto postDto = new PostDto();
+        postDto.setPublisher(user);
+        postDto.setTitle("Test");
+        postDto.setContent("TTTst");
+        postDto.setSection(1);
+        postDto.setImagePath(null);
+        postService.addPost(postDto);
     }
 }
 

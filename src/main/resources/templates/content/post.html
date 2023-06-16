@@ -33,6 +33,9 @@
                 <p>Release time: {{post.getReleaseTime()}}</p>
                 <p>Last Modify Time: {{post.getModifyTime()}}</p>
                 <P>Views: {{post.getViews()}} Likes: {{post.getLikes()}} Comments: {{post.getCommentsCount()}}</P>
+                {% if user.getId == post.getPublisher().getId %}
+                <a href="/content/edit/{{post.getId}}" target="_blank" class="btn btn-outline-dark" type="button">Edit Post</a>
+                {%endif%}
             </div>
         </div>
     </div>

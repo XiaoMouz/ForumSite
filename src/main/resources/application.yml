@@ -8,9 +8,10 @@ spring:
   application:
     name: SchoolMangerSpring # application name
   datasource:
-    url: ${DB_URL:localhost} # database url
-    username: ${DB_USERNAME:username} # database username
-    password: ${DB_PASSWORD:password} # database password
+    #DB_URL;DB_USERNAME=forum;DB_PASSWORD=
+    url: ${DB_URL:jdbc:mysql://localhost:3306/forum} # database url
+    username: ${DB_USERNAME:forum} # database username
+    password: ${DB_PASSWORD:KFwwkjEiRPid4Nsd} # database password
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5

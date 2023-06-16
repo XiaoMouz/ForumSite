@@ -3,12 +3,11 @@ package com.mou.gameforum.service.content.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mou.gameforum.entity.Comments;
-import com.mou.gameforum.entity.Levels;
-import com.mou.gameforum.entity.Post;
-import com.mou.gameforum.entity.User;
+import com.mou.gameforum.entity.*;
+import com.mou.gameforum.entity.dto.PostDto;
 import com.mou.gameforum.entity.enums.PostStatusEnum;
 import com.mou.gameforum.mapper.content.PostMapper;
+import com.mou.gameforum.mapper.content.SectionMapper;
 import com.mou.gameforum.mapper.levels.LevelsMapper;
 import com.mou.gameforum.service.content.CommentService;
 import com.mou.gameforum.service.content.PostService;
@@ -17,6 +16,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,6 +35,9 @@ public class PostServiceImpl
 
     @Resource
     UserService userService;
+
+    @Resource
+    SectionMapper sectionMapper;
 
     public List<Post> getPostListBySectionId(Integer sectionId, Integer page){
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
@@ -94,5 +97,26 @@ public class PostServiceImpl
         queryWrapper.eq("status", PostStatusEnum.PUBLISH);
         posts.addAll(postMapper.selectList(queryWrapper));
         return posts;
+    }
+
+    @Override
+    public void addPost(PostDto postDto) {
+        Post post = new Post();
+        post.setTitle(postDto.getTitle());
+        post.setContent(postDto.getContent());
+        post.setHeadImage(postDto.getImagePath());
+        post.setPublisher(postDto.getPublisher());
+        post.setReleaseTime(new Date());
+        post.setModifyTime(new Date());
+        post.setHeadImage(postDto.getImagePath());
+        Section section = sectionMapper.selectById(postDto.getSection());
+        post.setStatus(PostStatusEnum.PUBLISH);
+        postMapper.insert(post,section);
+    }
+
+    @Override
+    public int markDelete(Post post) {
+        post.setStatus(PostStatusEnum.DELETED);
+        return postMapper.updateById(post);
     }
 }
