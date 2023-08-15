@@ -217,7 +217,7 @@ public class StorageServiceImpl implements StorageService {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
-            Path path1 = Paths.get(this.rootLocation.toString(),"Avatar");
+            Path path1 = Paths.get(this.rootLocation.toString(),"avatar");
             // if path not exist create
             if(!Files.exists(path1)) {
                 Files.createDirectory(path1);
